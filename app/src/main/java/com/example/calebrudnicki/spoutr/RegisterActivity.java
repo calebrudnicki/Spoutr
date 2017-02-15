@@ -28,6 +28,11 @@ public class RegisterActivity extends AppCompatActivity {
         modelHelper = new Model();
     }
 
+
+    /**
+        This function registers in a new user when the register button is pressed as long as the username is unique
+        @param view View the register button
+     */
     protected void onRegisterPressed(View view) {
         User u = new User(etName.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString());
         if (modelHelper.addUser(u)) {

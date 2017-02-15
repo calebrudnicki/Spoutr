@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         registerLink = (TextView) findViewById(R.id.tvRegisterHere);
         modelHelper = new Model();
 
+        //This function segues the view to the register page upon clicking the register here button
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,9 +37,12 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.startActivity(registerIntent);
             }
         });
-
     }
 
+    /**
+        This function logs in a new user when the login button is pressed as long as the data is verified
+        @param view View the login button
+     */
     protected void onLoginPressed(View view) {
         for (User u : modelHelper.getAllUsers()) {
             if ((etUsername.getText().toString().equals(u.getUsername())) && (etPassword.getText().toString().equals(u.getPassword()))) {
