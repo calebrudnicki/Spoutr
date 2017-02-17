@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.util.Log;
 import android.view.View;
 
+import java.util.List;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etUsername;
@@ -28,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.etPassword);
         bLogin = (Button) findViewById(R.id.bLogin);
         registerLink = (TextView) findViewById(R.id.tvRegisterHere);
-        modelHelper = new Model();
+        modelHelper = Model.getInstance();
 
         //This function segues the view to the register page upon clicking the register here button
         registerLink.setOnClickListener(new View.OnClickListener() {
@@ -45,14 +47,17 @@ public class LoginActivity extends AppCompatActivity {
         @param view View the login button
      */
     protected void onLoginPressed(View view) {
+        if (modelHelper.getAllUsers().size() == 0) {
+            Log.d("FAILURE", "Login FAILED, No registered users");
+        }
         for (User u : modelHelper.getAllUsers()) {
             if ((etUsername.getText().toString().equals(u.getUsername())) && (etPassword.getText().toString().equals(u.getPassword()))) {
                 Log.d("SUCCESS", "Login SUCCESSFUL");
                 Intent userAreaIntent = new Intent(LoginActivity.this, UserAreaActivity.class);
-                userAreaIntent.putExtra("EXTRA_SESSION_ID", (Parcelable) u);
+                userAreaIntent.putExtra("SESSION_USER", (Parcelable) u);
                 LoginActivity.this.startActivity(userAreaIntent);
             } else {
-                Log.d("FAILURE", "Login FAILED");
+                Log.d("FAILURE", "Login FAILED, Your credentials didn't match a registered user");
             }
         }
     }

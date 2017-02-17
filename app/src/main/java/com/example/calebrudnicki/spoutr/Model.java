@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Model {
 
+    private static final Model instance = new Model();
     private static List<User> allUsers;
 
     /**
@@ -40,6 +41,13 @@ public class Model {
     public List<User> getAllUsers() {
         return allUsers;
     }
+
+
+    /**
+        This function returns an instance of the model class
+        @return the list of all users
+     */
+    public static Model getInstance() { return instance; }
 
 
 

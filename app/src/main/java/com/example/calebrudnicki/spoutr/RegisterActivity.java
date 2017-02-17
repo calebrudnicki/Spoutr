@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
 
+import java.util.List;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText etName;
@@ -26,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         bRegister = (Button) findViewById(R.id.bRegister);
-        modelHelper = new Model();
+        modelHelper =  Model.getInstance();
     }
 
 
@@ -39,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (modelHelper.addUser(u)) {
             Log.d("SUCCESS", "Registration SUCCESSFUL");
             Intent userAreaIntent = new Intent(RegisterActivity.this, UserAreaActivity.class);
-            userAreaIntent.putExtra("EXTRA_SESSION_ID", (Parcelable) u);
+            userAreaIntent.putExtra("SESSION_USER", (Parcelable) u);
             RegisterActivity.this.startActivity(userAreaIntent);
         } else {
             Log.d("FAILURE", "Please choose another username");
