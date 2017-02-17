@@ -1,6 +1,7 @@
 package com.example.calebrudnicki.spoutr;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (modelHelper.addUser(u)) {
             Log.d("SUCCESS", "Registration SUCCESSFUL");
             Intent userAreaIntent = new Intent(RegisterActivity.this, UserAreaActivity.class);
+            userAreaIntent.putExtra("EXTRA_SESSION_ID", (Parcelable) u);
             RegisterActivity.this.startActivity(userAreaIntent);
         } else {
             Log.d("FAILURE", "Please choose another username");

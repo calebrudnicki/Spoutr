@@ -1,6 +1,7 @@
 package com.example.calebrudnicki.spoutr;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
             if ((etUsername.getText().toString().equals(u.getUsername())) && (etPassword.getText().toString().equals(u.getPassword()))) {
                 Log.d("SUCCESS", "Login SUCCESSFUL");
                 Intent userAreaIntent = new Intent(LoginActivity.this, UserAreaActivity.class);
+                userAreaIntent.putExtra("EXTRA_SESSION_ID", (Parcelable) u);
                 LoginActivity.this.startActivity(userAreaIntent);
             } else {
                 Log.d("FAILURE", "Login FAILED");

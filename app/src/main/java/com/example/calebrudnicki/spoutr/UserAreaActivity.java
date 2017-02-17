@@ -22,7 +22,9 @@ public class UserAreaActivity extends AppCompatActivity {
         etAge = (EditText) findViewById(R.id.etAge);
 
         Log.d("WELCOME", "Greetings new user");
-        welcomeMessage.setText("Welcome");
+        //welcomeMessage.setText("Welcome");
+        User u = getIntent().getParcelableExtra("EXTRA_SESSION_ID");
+        welcomeMessage.setText("Welcome: " + u.getName());
 
     }
 }
