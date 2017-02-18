@@ -52,8 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
             Intent userAreaIntent = new Intent(RegisterActivity.this, UserAreaActivity.class);
             userAreaIntent.putExtra("SESSION_USER", (Parcelable) u);
             RegisterActivity.this.startActivity(userAreaIntent);
-        } else {
-            Log.d("FAILURE", "Please choose another username");
         }
     }
 
