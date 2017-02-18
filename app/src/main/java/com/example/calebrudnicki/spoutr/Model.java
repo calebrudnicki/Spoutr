@@ -1,6 +1,7 @@
 package com.example.calebrudnicki.spoutr;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -11,13 +12,12 @@ public class Model {
 
     private static final Model instance = new Model();
     private static List<User> allUsers;
+    public static List<String> accountTypes = Arrays.asList("User", "Worker", "Manager", "Admin");
 
     /**
         This function is the constructor for model, making an empty array list
      */
-    public Model() {
-        allUsers = new ArrayList<>();
-    }
+    public Model() { allUsers = new ArrayList<>(); }
 
     /**
         This function adds a user only if the passed in user's username does not already exist

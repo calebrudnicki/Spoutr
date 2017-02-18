@@ -22,6 +22,10 @@ public class UserAreaActivity extends AppCompatActivity {
 
         User u = getIntent().getParcelableExtra("SESSION_USER");
         welcomeMessage.setText("Welcome " + u.getName());
+        Log.d("CURRENT USER", "Name: " + u.getName());
+        Log.d("CURRENT USER", "Username: " + u.getUsername());
+        Log.d("CURRENT USER", "Password: " + u.getPassword());
+        Log.d("CURRENT USER", "Account Type: " + u.getAccountType());
     }
 
     /**

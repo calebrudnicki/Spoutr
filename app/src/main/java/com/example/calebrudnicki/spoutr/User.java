@@ -12,17 +12,20 @@ public class User implements Parcelable {
     private String name;
     private String username;
     private String password;
+    private String accountType;
 
     /**
         This function is the constructor for making a new user
         @param name String the user's name
         @param username String the user's username
         @param password String the user's password
+        @param accountType String the user's type of account
      */
-    public User(String name, String username, String password) {
+    public User(String name, String username, String password, String accountType) {
         this.name = name;
         this.username = username;
         this.password = password;
+        this.accountType = accountType;
     }
 
     /**
@@ -49,6 +52,14 @@ public class User implements Parcelable {
         return password;
     }
 
+    /**
+        This function returns the account type of the user
+        @return the user's account type
+     */
+    public String getAccountType() {
+        return accountType;
+    }
+
 
     //Parcelable stuff
 
@@ -60,6 +71,7 @@ public class User implements Parcelable {
         name = in.readString();
         username = in.readString();
         password = in.readString();
+        accountType = in.readString();
     }
 
     @Override
@@ -72,6 +84,7 @@ public class User implements Parcelable {
         dest.writeString(name);
         dest.writeString(username);
         dest.writeString(password);
+        dest.writeString(accountType);
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {

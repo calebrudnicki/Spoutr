@@ -5,9 +5,11 @@ import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
+import android.widget.Spinner;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etName;
     private EditText etUsername;
     private EditText etPassword;
+    private Spinner spAccountType;
     private Button bRegister;
     private Model modelHelper;
 
@@ -27,8 +30,14 @@ public class RegisterActivity extends AppCompatActivity {
         etName = (EditText) findViewById(R.id.etName);
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
+        spAccountType = (Spinner) findViewById(R.id.spAccountType);
         bRegister = (Button) findViewById(R.id.bRegister);
         modelHelper =  Model.getInstance();
+
+        //This function sets up the adapter to display the allowable account types in the spinner
+        ArrayAdapter<String> accountTypeAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Model.accountTypes);
+        accountTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spAccountType.setAdapter(accountTypeAdapter);
     }
 
 
@@ -37,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         @param view View the register button
      */
     protected void onRegisterPressed(View view) {
-        User u = new User(etName.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString());
+        User u = new User(etName.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString(), (String) spAccountType.getSelectedItem());
         if (modelHelper.addUser(u)) {
             Log.d("SUCCESS", "Registration SUCCESSFUL");
             Intent userAreaIntent = new Intent(RegisterActivity.this, UserAreaActivity.class);
