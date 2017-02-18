@@ -37,6 +37,16 @@ public class User implements Parcelable {
     }
 
     /**
+        This function sets the name of the user
+        @param name String the user's name
+     */
+    public void setName(String name) {
+        if (name.length() >= 1) {
+            this.name = name;
+        }
+    }
+
+    /**
         This function returns the username of the user
         @return the user's usernname
      */
@@ -45,11 +55,31 @@ public class User implements Parcelable {
     }
 
     /**
+        This function sets the username of the user
+        @param username String the user's username
+     */
+    public void setUsername(String username) {
+        if (username.length() >= 5) {
+            this.username = username;
+        }
+    }
+
+    /**
         This function returns the password of the user
         @return the user's password
      */
     public String getPassword() {
         return password;
+    }
+
+    /**
+        This function sets the password of the user
+        @param password String the user's password
+     */
+    public void setPassword(String password) {
+        if (password.length() >= 5) {
+            this.password = password;
+        }
     }
 
     /**

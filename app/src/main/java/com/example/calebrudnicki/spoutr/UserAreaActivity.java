@@ -12,6 +12,7 @@ import android.widget.TextView;
 public class UserAreaActivity extends AppCompatActivity {
 
     private TextView welcomeMessage;
+    private User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class UserAreaActivity extends AppCompatActivity {
 
         welcomeMessage = (TextView) findViewById(R.id.tvWelcomeMessage);
 
-        User u = getIntent().getParcelableExtra("SESSION_USER");
+        u = getIntent().getParcelableExtra("SESSION_USER");
         welcomeMessage.setText("Welcome " + u.getName());
         Log.d("CURRENT USER", "Name: " + u.getName());
         Log.d("CURRENT USER", "Username: " + u.getUsername());
@@ -37,4 +38,15 @@ public class UserAreaActivity extends AppCompatActivity {
         Intent loginActivityIntent = new Intent(UserAreaActivity.this, LoginActivity.class);
         UserAreaActivity.this.startActivity(loginActivityIntent);
     }
+
+    /**
+     This function brings a user to the settigs page when the settings button is pressed
+     @param view View the settings button
+     */
+    protected void onSettingsPressed(View view) {
+        Intent settingsActivityIntent = new Intent(UserAreaActivity.this, SettingsActivity.class);
+        settingsActivityIntent.putExtra("SESSION_USER", (Parcelable) u);
+        UserAreaActivity.this.startActivity(settingsActivityIntent);
+    }
+
 }
