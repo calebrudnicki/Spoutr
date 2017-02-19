@@ -40,13 +40,23 @@ public class UserAreaActivity extends AppCompatActivity {
     }
 
     /**
-     This function brings a user to the settigs page when the settings button is pressed
+     This function brings a user to the settings page when the settings button is pressed
      @param view View the settings button
      */
     protected void onSettingsPressed(View view) {
         Intent settingsActivityIntent = new Intent(UserAreaActivity.this, SettingsActivity.class);
         settingsActivityIntent.putExtra("SESSION_USER", (Parcelable) u);
         UserAreaActivity.this.startActivity(settingsActivityIntent);
+    }
+
+    /**
+     This function brings a user to the submit a report page when the submit report button is pressed
+     @param view View the settings button
+     */
+    protected void onSubmitReportPressed(View view) {
+        Intent submitReportActivityIntent = new Intent(UserAreaActivity.this, SubmitReportActivity.class);
+        submitReportActivityIntent.putExtra("SESSION_USER", (Parcelable) u);
+        UserAreaActivity.this.startActivity(submitReportActivityIntent);
     }
 
 }

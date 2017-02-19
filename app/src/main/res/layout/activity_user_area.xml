@@ -10,16 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.calebrudnicki.spoutr.UserAreaActivity">
 
-    <Button
-        android:text="Logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/bLogout"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:onClick="onLogoutPressed" />
-
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
@@ -36,5 +26,24 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/bSettings"
         android:onClick="onSettingsPressed" />
+
+    <Button
+        android:text="Logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bLogout"
+        android:onClick="onLogoutPressed"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Submit Report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bSubmitReport"
+        android:onClick="onSubmitReportPressed"
+        android:layout_below="@+id/bSettings"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

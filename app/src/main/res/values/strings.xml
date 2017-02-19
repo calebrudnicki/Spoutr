@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Spoutr</string>
+    <string name="title_activity_submit_report">SubmitReportActivity</string>
 </resources>
