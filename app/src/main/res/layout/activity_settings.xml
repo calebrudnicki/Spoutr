@@ -18,36 +18,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textUri|textPersonName"
-        android:ems="10"
-        android:id="@+id/etName"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:hint="Name" />
-
-    <TextView
-        android:text="Username:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView1"
-        android:layout_below="@+id/etName"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="31dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/etUsername"
-        android:layout_marginTop="16dp"
-        android:layout_alignTop="@+id/textView1"
-        android:layout_alignParentStart="true"
-        android:hint="Username" />
-
     <TextView
         android:text="Password:"
         android:layout_width="wrap_content"
@@ -76,5 +46,32 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:onClick="onDoneEditingPressed" />
+
+    <TextView
+        android:text="Username:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:layout_marginTop="29dp"
+        android:layout_below="@+id/tvName"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text='"name"'
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvName"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="12dp" />
+
+    <TextView
+        android:text='"username"'
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="14dp"
+        android:id="@+id/tvUsername" />
 
 </RelativeLayout>

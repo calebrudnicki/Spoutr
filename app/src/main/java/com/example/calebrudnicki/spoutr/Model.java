@@ -48,6 +48,21 @@ public class Model {
     }
 
     /**
+        This function updates the password of the user passed in
+        @param user User the user whose info we are updating
+        @param password String the new password
+     */
+    public void updateUser(User user, String password) {
+        for (User u : allUsers) {
+            if (u.getUsername().equals(user.getUsername())) {
+                allUsers.remove(user);
+                user.setPassword(password);
+                allUsers.add(user);
+            }
+        }
+    }
+
+    /**
         This function returns the list of all users
         @return the list of all users
      */
