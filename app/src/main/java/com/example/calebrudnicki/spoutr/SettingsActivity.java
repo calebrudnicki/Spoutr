@@ -43,7 +43,7 @@ public class  SettingsActivity extends AppCompatActivity {
         @param view View the done editing button
      */
     protected void onDoneEditingPressed(View view) {
-        if (etPassword.getText().toString().length() > 5) {
+        if (etPassword.getText().toString().length() > 5 && !etPassword.getText().toString().equals(u.getPassword())) {
             modelHelper.updateUser(u, etPassword.getText().toString());
         } else {
             Log.d("REGISTRATION FAILED1", "Your password needs to be more than 5 characters in length");
