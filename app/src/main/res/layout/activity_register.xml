@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/etName"
-        android:hint="Name"
+        android:id="@+id/etFirstName"
+        android:hint="First Name"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
@@ -26,9 +26,20 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
+        android:layout_below="@+id/etFirstName"
+        android:layout_alignParentStart="true"
+        android:id="@+id/etLastName"
+        android:layout_alignParentEnd="true"
+        android:hint="Last Name" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
         android:id="@+id/etUsername"
         android:hint="Username"
-        android:layout_below="@+id/etName"
+        android:layout_below="@+id/etLastName"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 
@@ -46,7 +57,7 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="22dp"
         android:id="@+id/spAccountType"
         android:layout_below="@+id/etPassword"
         android:layout_alignParentStart="true" />
@@ -57,8 +68,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/bRegister"
         android:onClick="onRegisterPressed"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="18dp"
         android:layout_below="@+id/spAccountType"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

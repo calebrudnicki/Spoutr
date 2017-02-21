@@ -11,11 +11,10 @@ import android.widget.EditText;
 import android.view.View;
 import android.widget.Spinner;
 
-import java.util.List;
-
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText etName;
+    private EditText etFirstName;
+    private EditText etLastName;
     private EditText etUsername;
     private EditText etPassword;
     private Spinner spAccountType;
@@ -27,7 +26,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        etName = (EditText) findViewById(R.id.etName);
+        etFirstName = (EditText) findViewById(R.id.etFirstName);
+        etLastName = (EditText) findViewById(R.id.etLastName);
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         spAccountType = (Spinner) findViewById(R.id.spAccountType);
@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         @param view View the register button
      */
     protected void onRegisterPressed(View view) {
-        User u = new User(etName.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString(), (String) spAccountType.getSelectedItem());
+        User u = new User(etFirstName.getText().toString() + " " + etLastName.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString(), (String) spAccountType.getSelectedItem());
         if (modelHelper.addUser(u)) {
             Log.d("SUCCESS", "Registration SUCCESSFUL");
             Intent homePageIntent = new Intent(RegisterActivity.this, HomePageActivity.class);
