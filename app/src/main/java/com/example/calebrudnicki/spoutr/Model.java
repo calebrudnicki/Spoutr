@@ -15,6 +15,8 @@ public class Model {
     private static final Model instance = new Model();
     private static List<User> allUsers;
     public static List<String> accountTypes = Arrays.asList("User", "Worker", "Manager", "Admin");
+    public static List<String> waterTypes = Arrays.asList("Well", "Stream", "River", "Spring", "Bottled", "Lake");
+    public static List<String> waterConditions = Arrays.asList("Waste", "Treatable Clear", "Treatable Muddy", "Potable");
 
     /**
         This function is the constructor for model, making an empty array list
