@@ -50,24 +50,28 @@ public class LoginActivity extends AppCompatActivity {
         @param view View the login button
      */
     protected void onLoginPressed(View view) {
-        if (modelHelper.getAllUsers().size() == 0) {
-            Log.d("FAILURE", "Login FAILED, No registered users");
-        }
         boolean hasLogged = false;
         for (User u : modelHelper.getAllUsers()) {
             if ((etUsername.getText().toString().equals(u.getUsername())) && (etPassword.getText().toString().equals(u.getPassword()))) {
                 hasLogged = true;
-                Log.d("SUCCESS", "Login SUCCESSFUL");
                 Intent homePageIntent = new Intent(LoginActivity.this, HomePageActivity.class);
                 homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
                 LoginActivity.this.startActivity(homePageIntent);
-            } else {
-                Log.d("FAILURE", "Login FAILED, Your credentials didn't match a registered user");
             }
         }
         //If the user failed to log in, display a message
         if (!hasLogged) {
             badLogin.setVisibility(View.VISIBLE);
+            etPassword.setText(null);
         }
+    }
+
+    @Override
+    public void onResume() {
+        //Resets the login page after back button has been pressed
+        super.onResume();
+        etUsername.setText(null);
+        badLogin.setVisibility(View.INVISIBLE);
+        etUsername.requestFocus();
     }
 }
