@@ -17,6 +17,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText etUsername;
     private EditText etPassword;
+    private TextView badLogin;
     private Button bLogin;
     private TextView registerLink;
     private Model modelHelper;
@@ -28,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
 
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
+        badLogin = (TextView) findViewById(R.id.badLogin);
+        badLogin.setVisibility(View.INVISIBLE);
         bLogin = (Button) findViewById(R.id.bLogin);
         registerLink = (TextView) findViewById(R.id.tvRegisterHere);
         modelHelper = Model.getInstance();
@@ -50,8 +53,10 @@ public class LoginActivity extends AppCompatActivity {
         if (modelHelper.getAllUsers().size() == 0) {
             Log.d("FAILURE", "Login FAILED, No registered users");
         }
+        boolean hasLogged = false;
         for (User u : modelHelper.getAllUsers()) {
             if ((etUsername.getText().toString().equals(u.getUsername())) && (etPassword.getText().toString().equals(u.getPassword()))) {
+                hasLogged = true;
                 Log.d("SUCCESS", "Login SUCCESSFUL");
                 Intent homePageIntent = new Intent(LoginActivity.this, HomePageActivity.class);
                 homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
@@ -59,6 +64,10 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 Log.d("FAILURE", "Login FAILED, Your credentials didn't match a registered user");
             }
+        }
+        //If the user failed to log in, display a message
+        if (!hasLogged) {
+            badLogin.setVisibility(View.VISIBLE);
         }
     }
 }
