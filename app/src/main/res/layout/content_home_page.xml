@@ -13,33 +13,4 @@
     tools:context="com.example.calebrudnicki.spoutr.HomePageActivity"
     tools:showIn="@layout/app_bar_home_page">
 
-    <Button
-        android:text="Logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bLogout"
-        android:onClick="onLogoutPressed"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:text="Submit Report"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bSubmitReport"
-        android:onClick="onSubmitReportPressed"
-        android:layout_above="@+id/bLogout"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="Settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bSettings"
-        android:onClick="onSettingsPressed"
-        android:layout_above="@+id/bSubmitReport"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
 </RelativeLayout>

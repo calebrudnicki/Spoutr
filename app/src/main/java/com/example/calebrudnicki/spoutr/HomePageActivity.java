@@ -25,9 +25,6 @@ public class HomePageActivity extends AppCompatActivity
 
     private TextView tvName;
     private TextView tvUsername;
-    private Button bSettings;
-    private Button bSubmitReport;
-    private Button bLogout;
     private User u;
 
     @Override
@@ -54,10 +51,6 @@ public class HomePageActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        bSettings = (Button) findViewById(R.id.bSettings);
-        bSubmitReport = (Button) findViewById(R.id.bSubmitReport);
-        bLogout = (Button) findViewById(R.id.bLogout);
 
         u = getIntent().getParcelableExtra("SESSION_USER");
         Log.d("CURRENT USER", "Name: " + u.getName());
@@ -110,20 +103,17 @@ public class HomePageActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-//            Log.d("NAVBAR", "Heading to the submit a report page");
-//            Intent submitReportActivityIntent = new Intent(HomePageActivity.this, SubmitReportActivity.class);
-//            submitReportActivityIntent.putExtra("SESSION_USER", (Parcelable) u);
-//            HomePageActivity.this.startActivity(submitReportActivityIntent);
-        } else if (id == R.id.nav_slideshow) {
-//            Log.d("NAVBAR", "Going to the settings page");
-//            Intent settingsActivityIntent = new Intent(HomePageActivity.this, SettingsActivity.class);
-//            settingsActivityIntent.putExtra("SESSION_USER", (Parcelable) u);
-//            HomePageActivity.this.startActivity(settingsActivityIntent);
-        } else if (id == R.id.nav_manage) {
-//            Log.d("NAVBAR", "Logging the user out");
-//            Intent loginActivityIntent = new Intent(HomePageActivity.this, LoginActivity.class);
-//            HomePageActivity.this.startActivity(loginActivityIntent);
+        } else if (id == R.id.nav_submitReport) {
+            Intent submitReportActivityIntent = new Intent(HomePageActivity.this, SubmitReportActivity.class);
+            submitReportActivityIntent.putExtra("SESSION_USER", (Parcelable) u);
+            HomePageActivity.this.startActivity(submitReportActivityIntent);
+        } else if (id == R.id.nav_settings) {
+            Intent settingsActivityIntent = new Intent(HomePageActivity.this, SettingsActivity.class);
+            settingsActivityIntent.putExtra("SESSION_USER", (Parcelable) u);
+            HomePageActivity.this.startActivity(settingsActivityIntent);
+        } else if (id == R.id.nav_logout) {
+            Intent loginActivityIntent = new Intent(HomePageActivity.this, LoginActivity.class);
+            HomePageActivity.this.startActivity(loginActivityIntent);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -133,36 +123,6 @@ public class HomePageActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    /**
-        This function brings a user to the settings page when the settings button is pressed
-        @param view View the settings button
-     */
-    protected void onSettingsPressed(View view) {
-        Intent settingsActivityIntent = new Intent(HomePageActivity.this, SettingsActivity.class);
-        settingsActivityIntent.putExtra("SESSION_USER", (Parcelable) u);
-        HomePageActivity.this.startActivity(settingsActivityIntent);
-    }
-
-    /**
-        This function brings a user to the submit a report page when the submit report button is pressed
-        @param view View the settings button
-     */
-    protected void onSubmitReportPressed(View view) {
-        Intent submitReportActivityIntent = new Intent(HomePageActivity.this, SubmitReportActivity.class);
-        submitReportActivityIntent.putExtra("SESSION_USER", (Parcelable) u);
-        HomePageActivity.this.startActivity(submitReportActivityIntent);
-    }
-
-    /**
-        This function logs a new user out when the logout button is pressed
-        @param view View the login button
-     */
-    protected void onLogoutPressed(View view) {
-        Log.d("LOGOUT", "Logout SUCCESSFUL");
-        Intent loginActivityIntent = new Intent(HomePageActivity.this, LoginActivity.class);
-        HomePageActivity.this.startActivity(loginActivityIntent);
     }
 
 }
