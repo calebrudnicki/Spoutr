@@ -45,11 +45,13 @@ public class  SettingsActivity extends AppCompatActivity {
     protected void onDoneEditingPressed(View view) {
         if (etPassword.getText().toString().length() > 5 && !etPassword.getText().toString().equals(u.getPassword())) {
             modelHelper.updateUser(u, etPassword.getText().toString());
+        } else if (etPassword.getText().toString().equals(u.getPassword())) {
+            Log.d("REGISTRATION POINTLESS", "You never changed your password");
         } else {
             Log.d("REGISTRATION FAILED1", "Your password needs to be more than 5 characters in length");
         }
-        Intent userAreaIntent = new Intent(SettingsActivity.this, UserAreaActivity.class);
-        userAreaIntent.putExtra("SESSION_USER", (Parcelable) u);
-        SettingsActivity.this.startActivity(userAreaIntent);
+        Intent homePageIntent = new Intent(SettingsActivity.this, HomePageActivity.class);
+        homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
+        SettingsActivity.this.startActivity(homePageIntent);
     }
 }

@@ -16,9 +16,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".UserAreaActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".SubmitReportActivity"></activity>
+        <activity android:name=".SubmitReportActivity" />
+        <activity
+            android:name=".HomePageActivity"
+            android:label="@string/title_activity_home_page"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -49,9 +49,9 @@ public class RegisterActivity extends AppCompatActivity {
         User u = new User(etName.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString(), (String) spAccountType.getSelectedItem());
         if (modelHelper.addUser(u)) {
             Log.d("SUCCESS", "Registration SUCCESSFUL");
-            Intent userAreaIntent = new Intent(RegisterActivity.this, UserAreaActivity.class);
-            userAreaIntent.putExtra("SESSION_USER", (Parcelable) u);
-            RegisterActivity.this.startActivity(userAreaIntent);
+            Intent homePageIntent = new Intent(RegisterActivity.this, HomePageActivity.class);
+            homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
+            RegisterActivity.this.startActivity(homePageIntent);
         }
     }
 

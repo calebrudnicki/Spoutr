@@ -53,9 +53,9 @@ public class LoginActivity extends AppCompatActivity {
         for (User u : modelHelper.getAllUsers()) {
             if ((etUsername.getText().toString().equals(u.getUsername())) && (etPassword.getText().toString().equals(u.getPassword()))) {
                 Log.d("SUCCESS", "Login SUCCESSFUL");
-                Intent userAreaIntent = new Intent(LoginActivity.this, UserAreaActivity.class);
-                userAreaIntent.putExtra("SESSION_USER", (Parcelable) u);
-                LoginActivity.this.startActivity(userAreaIntent);
+                Intent homePageIntent = new Intent(LoginActivity.this, HomePageActivity.class);
+                homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
+                LoginActivity.this.startActivity(homePageIntent);
             } else {
                 Log.d("FAILURE", "Login FAILED, Your credentials didn't match a registered user");
             }
