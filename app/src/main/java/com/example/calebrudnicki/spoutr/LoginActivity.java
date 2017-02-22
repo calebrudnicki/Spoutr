@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.startActivity(homePageIntent);
             }
         }
-        //If the user failed to log in, display a message
+        //If the user failed to log in, display a message and clear the password field
         if (!hasLogged) {
             badLogin.setVisibility(View.VISIBLE);
             etPassword.setText(null);

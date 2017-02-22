@@ -21,7 +21,10 @@ public class Model {
     /**
         This function is the constructor for model, making an empty array list
      */
-    public Model() { allUsers = new ArrayList<>(); }
+    public Model() {
+        allUsers = new ArrayList<>();
+        loadDummyData();
+    }
 
     /**
         This function adds a user only if the passed in user's credentials pass all of the requirements
@@ -79,6 +82,15 @@ public class Model {
      */
     public static Model getInstance() { return instance; }
 
-
+    /**
+        This functions loads dummy data into the model to allow for smooth testing
+     */
+    public void loadDummyData() {
+        allUsers.add(new User("Caleb Rudnicki", "crudnicki", "crudnicki", "User"));
+        allUsers.add(new User("Kendal Lin", "kendallin", "kendallin", "User"));
+        allUsers.add(new User("Chloe Belangia", "chloebelangia", "chloebelangia", "User"));
+        allUsers.add(new User("Jack McCormack", "jackmccormack", "jackmccormack", "User"));
+        allUsers.add(new User("Rachel Techau", "racheltechau", "racheltechau", "User"));
+    }
 
 }
