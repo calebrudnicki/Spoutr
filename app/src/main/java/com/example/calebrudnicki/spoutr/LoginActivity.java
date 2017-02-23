@@ -46,8 +46,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-        This function logs in a new user when the login button is pressed as long as the data is verified
-        @param view View the login button
+     * This function logs in a new user when the login button is pressed as long as the data is verified
+     * @param view View the login button
      */
     protected void onLoginPressed(View view) {
         boolean hasLogged = false;

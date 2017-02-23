@@ -39,8 +39,8 @@ public class  SettingsActivity extends AppCompatActivity {
     }
 
     /**
-        This function updates the user's password when the done editing button is pressed and then goes back to the user activity page
-        @param view View the done editing button
+     * This function updates the user's password when the done editing button is pressed and then goes back to the user activity page
+     * @param view View the done editing button
      */
     protected void onDoneEditingPressed(View view) {
         if (etPassword.getText().toString().length() > 5 && !etPassword.getText().toString().equals(u.getPassword())) {

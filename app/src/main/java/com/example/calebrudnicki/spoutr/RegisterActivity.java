@@ -42,8 +42,8 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     /**
-        This function registers in a new user when the register button is pressed as long as the username is unique
-        @param view View the register button
+     * This function registers in a new user when the register button is pressed as long as the username is unique
+     * @param view View the register button
      */
     protected void onRegisterPressed(View view) {
         User u = new User(etFirstName.getText().toString() + " " + etLastName.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString(), (String) spAccountType.getSelectedItem());

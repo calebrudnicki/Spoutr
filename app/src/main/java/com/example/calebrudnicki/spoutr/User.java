@@ -3,11 +3,13 @@ package com.example.calebrudnicki.spoutr;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by calebrudnicki on 2/13/17.
  */
 
-public class User implements Parcelable {
+public class User implements Parcelable, Serializable {
 
     private String name;
     private String username;
@@ -15,11 +17,11 @@ public class User implements Parcelable {
     private String accountType;
 
     /**
-        This function is the constructor for making a new user
-        @param name String the user's name
-        @param username String the user's username
-        @param password String the user's password
-        @param accountType String the user's type of account
+     * This function is the constructor for making a new user
+     * @param name String the user's name
+     * @param username String the user's username
+     * @param password String the user's password
+     * @param accountType String the user's type of account
      */
     public User(String name, String username, String password, String accountType) {
         this.name = name;
@@ -29,40 +31,40 @@ public class User implements Parcelable {
     }
 
     /**
-        This function returns the name of the user
-        @return the user's name
+     * This function returns the name of the user
+     * @return the user's name
      */
     public String getName() {
         return name;
     }
 
     /**
-        This function returns the username of the user
-        @return the user's usernname
+     * This function returns the username of the user
+     * @return the user's usernname
      */
     public String getUsername() {
         return username;
     }
 
     /**
-        This function returns the password of the user
-        @return the user's password
+     * This function returns the password of the user
+     * @return the user's password
      */
     public String getPassword() {
         return password;
     }
 
     /**
-        This function sets the password of the user
-        @param password String the user's password
+     * This function sets the password of the user
+     * @param password String the user's password
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-        This function returns the account type of the user
-        @return the user's account type
+     * This function returns the account type of the user
+     * @return the user's account type
      */
     public String getAccountType() {
         return accountType;
@@ -72,8 +74,8 @@ public class User implements Parcelable {
     //Parcelable stuff
 
     /**
-        This function is the parcelable constructor for making a new user
-        @param in Parcel the user's parcel info
+     * This function is the parcelable constructor for making a new user
+     * @param in Parcel the user's parcel info
      */
     private User(Parcel in) {
         name = in.readString();

@@ -26,6 +26,7 @@ public class HomePageActivity extends AppCompatActivity
     private TextView tvName;
     private TextView tvUsername;
     private User u;
+    private Model modelHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,9 @@ public class HomePageActivity extends AppCompatActivity
         Log.d("CURRENT USER", "Username: " + u.getUsername());
         Log.d("CURRENT USER", "Password: " + u.getPassword());
         Log.d("CURRENT USER", "Account Type: " + u.getAccountType());
+
+        modelHelper = Model.getInstance();
+        Log.d("WATER REPORTS", "All Reports: " + modelHelper.getAllReports());
     }
 
     @Override

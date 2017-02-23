@@ -46,13 +46,16 @@ public class SubmitReportActivity extends AppCompatActivity {
     }
 
     /**
-        This function creates a new water report once the submit water report is pressed
-        @param view View the register button
+     * This function creates a new water report once the submit water report is pressed
+     * @param view View the register button
      */
     protected void onSubmitReportPressed(View view) {
-        Log.d("WATER REPORT SUBMITTED", "Location: " + etLocation.getText().toString());
-        Log.d("WATER REPORT SUBMITTED", "Water Type: " + (String) spWaterTypes.getSelectedItem());
-        Log.d("WATER REPORT SUBMITTED", "Water Condition: " + (String) spWaterConditions.getSelectedItem());
+        WaterReport newReport = new WaterReport(u, "Today", etLocation.getText().toString(), spWaterTypes.getSelectedItem().toString(), spWaterConditions.getSelectedItem().toString(), 111);
+        if (modelHelper.addWaterReport(newReport)) {
+            Intent homePageIntent = new Intent(SubmitReportActivity.this, HomePageActivity.class);
+            homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
+            SubmitReportActivity.this.startActivity(homePageIntent);
+        }
     }
 
 }
