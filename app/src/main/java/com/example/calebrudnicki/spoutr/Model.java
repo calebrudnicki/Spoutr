@@ -72,9 +72,10 @@ public class Model {
     public void updateUser(User user, String password) {
         for (User u : allUsers) {
             if (u.getUsername().equals(user.getUsername())) {
-                allUsers.remove(user);
+                allUsers.remove(u);
                 user.setPassword(password);
                 allUsers.add(user);
+                return;
             }
         }
     }

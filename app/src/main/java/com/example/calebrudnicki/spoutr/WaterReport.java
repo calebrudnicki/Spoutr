@@ -21,7 +21,7 @@ public class WaterReport implements Parcelable {
      * This function is the constructor to make a new water report
      */
     public WaterReport(User submitter, String dateSubmitted, String location, String type, String condition, int reportNumber) {
-        this. submitter = submitter;
+        this.submitter = submitter;
         this.dateSubmitted = dateSubmitted;
         this.location = location;
         this.type = type;
@@ -31,37 +31,37 @@ public class WaterReport implements Parcelable {
 
     /**
      * This function returns the name of the submitter
-     * @return user who submitted
+     * @return the user who submitted
      */
     public User getSubmitter() { return submitter; }
 
     /**
      * This function returns the date that the water report was submitted
-     * @return date it was submitted
+     * @return the date it was submitted
      */
     public String getDateSubmitted() { return dateSubmitted; }
 
     /**
      * This function returns the location of the water report
-     * @return location of water report
+     * @return the location of water report
      */
     public String getLocation() { return location; }
 
     /**
      * This function returns the type of the water
-     * @return type of water
+     * @return the type of water
      */
     public String getType() { return type; }
 
     /**
      * This function returns the condition of the water
-     * @return condition of water
+     * @return the condition of water
      */
     public String getCondition() { return condition; }
 
     /**
      * This function returns the report number
-     * @return Report number
+     * @return the report number
      */
     public int getReportNumber() { return reportNumber; }
 
