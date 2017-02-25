@@ -15,18 +15,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView tvName;
     private TextView tvUsername;
+    private ListView lvWaterReports;
     private User u;
+    private WaterReport wr;
     private Model modelHelper;
+    private List<String> listWaterReports;
+//    private List<String> listWaterReports1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +61,15 @@ public class HomePageActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //This block of code sets up the list view
+        listWaterReports = new ArrayList<>();
+        for (WaterReport wr : Model.allReports) {
+            listWaterReports.add(wr.getLocation());
+        }
+        lvWaterReports = (ListView) findViewById(R.id.lvWaterReports);
+        ArrayAdapter<WaterReport> listViewAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, listWaterReports);
+        lvWaterReports.setAdapter(listViewAdapter);
 
         u = getIntent().getParcelableExtra("SESSION_USER");
         Log.d("CURRENT USER", "Name: " + u.getName());

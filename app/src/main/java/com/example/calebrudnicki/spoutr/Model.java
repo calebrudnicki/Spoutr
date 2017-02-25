@@ -13,8 +13,8 @@ import java.util.List;
 public class Model {
 
     private static final Model instance = new Model();
-    private static List<User> allUsers;
-    private static List<WaterReport> allReports;
+    public static List<User> allUsers;
+    public static List<WaterReport> allReports;
     public static List<String> accountTypes = Arrays.asList("User", "Worker", "Manager", "Admin");
     public static List<String> waterTypes = Arrays.asList("Well", "Stream", "River", "Spring", "Bottled", "Lake");
     public static List<String> waterConditions = Arrays.asList("Waste", "Treatable Clear", "Treatable Muddy", "Potable");
@@ -108,10 +108,10 @@ public class Model {
     public void loadDummyData() {
         User caleb = new User("Caleb Rudnicki", "crudnicki", "crudnicki", "User");
         allUsers.add(caleb);
-        allUsers.add(new User("Kendal Lin", "kendallin", "kendallin", "User"));
-        allUsers.add(new User("Chloe Belangia", "chloebelangia", "chloebelangia", "User"));
-        allUsers.add(new User("Jack McCormack", "jackmccormack", "jackmccormack", "User"));
-        allUsers.add(new User("Rachel Techau", "racheltechau", "racheltechau", "User"));
+        allUsers.add(new User("Kendal Lin", "klin", "klin", "User"));
+        allUsers.add(new User("Chloe Belangia", "cbelangia", "cbelangia", "User"));
+        allUsers.add(new User("Jack McCormack", "jmccormack", "jmccormack", "User"));
+        allUsers.add(new User("Rachel Techau", "rtechau", "rtechau", "User"));
         allReports.add(new WaterReport(caleb, "Yesterday", "New York City", "Well", "Potable", 222));
     }
 

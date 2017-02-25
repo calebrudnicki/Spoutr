@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
         bRegister = (Button) findViewById(R.id.bRegister);
         modelHelper =  Model.getInstance();
 
-        //This function sets up the adapter to display the allowable account types in the spinner
+        //This block of code sets up the adapter to display the allowable account types in the spinner
         ArrayAdapter<String> accountTypeAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Model.accountTypes);
         accountTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spAccountType.setAdapter(accountTypeAdapter);
