@@ -16,7 +16,9 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/lvWaterReports" />
+        android:id="@+id/lvWaterReports"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:clickable="false" />
+
 </RelativeLayout>

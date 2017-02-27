@@ -16,6 +16,7 @@ public class  SettingsActivity extends AppCompatActivity {
 
     private TextView tvName;
     private TextView tvUsername;
+    private EditText etEmail;
     private EditText etPassword;
     private User u;
     private Model modelHelper;
@@ -27,6 +28,7 @@ public class  SettingsActivity extends AppCompatActivity {
 
         tvName = (TextView) findViewById(R.id.tvName);
         tvUsername = (TextView) findViewById(R.id.tvUsername);
+        etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
         modelHelper =  Model.getInstance();
 
@@ -34,25 +36,26 @@ public class  SettingsActivity extends AppCompatActivity {
 
         tvName.setText(u.getName());
         tvUsername.setText(u.getUsername());
+        etEmail.setText(u.getEmail());
         etPassword.setText(u.getPassword());
         Log.d("SETTINGS", "USER: " + u.getAccountType());
     }
 
     /**
-     * This function updates the user's password when the done editing button is pressed and then goes back to the user activity page
+     * This function updates the user's password and email when the done editing button is pressed and then goes back to the user activity page
      * @param view View the done editing button
      */
     protected void onDoneEditingPressed(View view) {
-        if (etPassword.getText().toString().length() > 5 && !etPassword.getText().toString().equals(u.getPassword())) {
-            modelHelper.updateUser(u, etPassword.getText().toString());
-        } else if (etPassword.getText().toString().equals(u.getPassword())) {
-            Log.d("REGISTRATION POINTLESS", "You never changed your password");
+        if (etPassword.getText().toString().length() > 5 && etEmail.getText().toString().contains("@")) {
+            modelHelper.updateUser(u, etPassword.getText().toString(), etEmail.getText().toString());
+            Intent homePageIntent = new Intent(SettingsActivity.this, HomePageActivity.class);
+            homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
+            SettingsActivity.this.startActivity(homePageIntent);
+        } else if (etPassword.getText().toString().length() <= 5) {
+            Log.d("REGISTRATION FAILED", "Your password needs to be more than 5 characters in length");
         } else {
-            Log.d("REGISTRATION FAILED1", "Your password needs to be more than 5 characters in length");
+            Log.d("REGISTRATION FAILED", "Your email needs to include the @ sign");
         }
-        Intent homePageIntent = new Intent(SettingsActivity.this, HomePageActivity.class);
-        homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
-        SettingsActivity.this.startActivity(homePageIntent);
     }
 
     /**

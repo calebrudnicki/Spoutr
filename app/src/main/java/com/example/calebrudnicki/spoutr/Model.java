@@ -37,6 +37,9 @@ public class Model {
             if (user.getName().length() < 1) {
                 Log.d("REGISTRATION FAILED", "Your name needs to be more than 1 character in length");
                 return false;
+            } else if (!user.getEmail().contains("@")) {
+                Log.d("REGISTRATION FAILED", "Your email does not include the @ sign");
+                return false;
             } else if (user.getUsername().length() < 5) {
                 Log.d("REGISTRATION FAILED", "Your username needs to be more than 5 characters in length");
                 return false;
@@ -65,14 +68,16 @@ public class Model {
     }
 
     /**
-     * This function updates the password of the user passed in
+     * This function updates the email and password of the user passed in
      * @param user User the user whose info we are updating
      * @param password String the new password
+     * @param email String the new email
      */
-    public void updateUser(User user, String password) {
+    public void updateUser(User user, String password, String email) {
         for (User u : allUsers) {
             if (u.getUsername().equals(user.getUsername())) {
                 allUsers.remove(u);
+                user.setEmail(email);
                 user.setPassword(password);
                 allUsers.add(user);
                 return;
@@ -106,12 +111,12 @@ public class Model {
      * This functions loads dummy data into the model to allow for smooth testing
      */
     public void loadDummyData() {
-        User caleb = new User("Caleb Rudnicki", "crudnicki", "crudnicki", "User");
+        User caleb = new User("Caleb Rudnicki", "crudnicki@gmail.com", "crudnicki", "crudnicki", "User");
         allUsers.add(caleb);
-        allUsers.add(new User("Kendal Lin", "klin", "klin", "User"));
-        allUsers.add(new User("Chloe Belangia", "cbelangia", "cbelangia", "User"));
-        allUsers.add(new User("Jack McCormack", "jmccormack", "jmccormack", "User"));
-        allUsers.add(new User("Rachel Techau", "rtechau", "rtechau", "User"));
+        allUsers.add(new User("Kendal Lin", "klin@gmail.com", "klin", "klin123", "User"));
+        allUsers.add(new User("Chloe Belangia", "cbelangia@gmail.com", "cbelangia", "cbelangia", "User"));
+        allUsers.add(new User("Jack McCormack", "jmccormack@gmail.com", "jmccormack", "jmccormack", "User"));
+        allUsers.add(new User("Rachel Techau", "rtechau@gmail.com", "rtechau", "rtechau", "User"));
         allReports.add(new WaterReport(caleb, "Yesterday", "New York City", "Well", "Potable", 222));
     }
 

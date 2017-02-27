@@ -11,14 +11,6 @@
     tools:context="com.example.calebrudnicki.spoutr.SubmitReportActivity">
 
     <TextView
-        android:text="This is the Submit Report Page"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView3" />
-
-    <TextView
         android:text="Water Condition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,15 +26,6 @@
         android:id="@+id/textView4"
         android:layout_below="@+id/etLocation"
         android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="Location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView6"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="38dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -70,6 +53,7 @@
         android:layout_marginTop="14dp"
         android:id="@+id/spWaterConditions" />
 
+<<<<<<< HEAD
     <Button
         android:text="Submit Report"
         android:layout_width="wrap_content"
@@ -90,4 +74,13 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
 
+=======
+    <TextView
+        android:text="Location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+>>>>>>> c9b01c171bfc810007af4940353eff0a434b3668
 </RelativeLayout>
