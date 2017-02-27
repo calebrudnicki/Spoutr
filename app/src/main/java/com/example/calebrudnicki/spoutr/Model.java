@@ -34,25 +34,11 @@ public class Model {
      * @return true if user was added, false if the username was already taken
     */
     public boolean addUser(User user) {
-            if (user.getName().length() < 1) {
-                Log.d("REGISTRATION FAILED", "Your name needs to be more than 1 character in length");
-                return false;
-            } else if (!user.getEmail().contains("@")) {
-                Log.d("REGISTRATION FAILED", "Your email does not include the @ sign");
-                return false;
-            } else if (user.getUsername().length() < 5) {
-                Log.d("REGISTRATION FAILED", "Your username needs to be more than 5 characters in length");
-                return false;
-            } else if (user.getPassword().length() < 5) {
-                Log.d("REGISTRATION FAILED", "Your password needs to be more than 5 characters in length");
-                return false;
-            }
             for (User u : allUsers) {
                 if (u.getUsername().equals(user.getUsername())) {
-                    Log.d("REGISTRATION FAILED", "Your username matches one of a current user");
                     return false;
+                }
             }
-        }
         allUsers.add(user);
         return true;
     }
