@@ -55,15 +55,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 
-<<<<<<< HEAD
-    <Button
-        android:text="Register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bRegister"
-        android:onClick="onRegisterPressed"
-        android:layout_alignParentBottom="true"
-=======
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,46 +64,51 @@
         android:hint="Last Name"
         android:layout_below="@+id/etFirstName"
         android:layout_alignParentStart="true"
->>>>>>> c9b01c171bfc810007af4940353eff0a434b3668
         android:layout_alignParentEnd="true" />
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:layout_marginTop="42dp"
-=======
->>>>>>> c9b01c171bfc810007af4940353eff0a434b3668
         android:id="@+id/spAccountType"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bRegister"
+        android:onClick="onRegisterPressed"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/tvBadRegister" />
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bCancelRegister"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/tvBadRegister"
+        android:onClick="onCancelRegisterPressed" />
 
     <TextView
         android:text="Account Type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_below="@+id/etPassword"
-=======
         android:id="@+id/bRegister"
         android:onClick="onRegisterPressed"
-        android:layout_marginTop="13dp"
-        android:layout_below="@+id/spAccountType"
->>>>>>> c9b01c171bfc810007af4940353eff0a434b3668
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp"
-        android:id="@+id/textView7" />
+        android:layout_below="@+id/etPassword"
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="TextView"
-        android:layout_width="match_parent"
+        android:text="Error Message"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="#FF0000"
-        android:layout_marginTop="14dp"
-        android:id="@+id/badRegister"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:layout_below="@+id/bRegister"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/tvBadRegister"
+        android:layout_below="@+id/spAccountType"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

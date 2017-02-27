@@ -19,10 +19,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etUsername;
     private EditText etPassword;
-    private TextView badRegister;
+    private TextView tvBadRegister;
     private Spinner spAccountType;
-    private Button bRegister;
-    private Button bCancelRegister;
     private Model modelHelper;
 
     @Override
@@ -36,10 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         spAccountType = (Spinner) findViewById(R.id.spAccountType);
-        badRegister = (TextView) findViewById(R.id.badRegister);
-        badRegister.setVisibility(View.INVISIBLE);
-        bRegister = (Button) findViewById(R.id.bRegister);
-        bCancelRegister = (Button) findViewById(R.id.bCancelRegister);
+        tvBadRegister = (TextView) findViewById(R.id.tvBadRegister);
+        tvBadRegister.setVisibility(View.INVISIBLE);
         modelHelper =  Model.getInstance();
 
         //This block of code sets up the adapter to display the allowable account types in the spinner
@@ -55,33 +51,33 @@ public class RegisterActivity extends AppCompatActivity {
      */
     protected void onRegisterPressed(View view) {
         if (etPassword.getText().toString().length() < 2) {
-            badRegister.setText("Failed to register user. Password must be longer.");
-            badRegister.setVisibility(View.VISIBLE);
+            tvBadRegister.setText("Failed to register user. Password must be longer.");
+            tvBadRegister.setVisibility(View.VISIBLE);
         }
         if (etUsername.getText().toString().length() < 2) {
-            badRegister.setText("Failed to register user. Username must be longer.");
-            badRegister.setVisibility(View.VISIBLE);
+            tvBadRegister.setText("Failed to register user. Username must be longer.");
+            tvBadRegister.setVisibility(View.VISIBLE);
         }
         if (etEmail.getText().toString().length() < 2 || !etEmail.getText().toString().contains("@")) {
-            badRegister.setText("Failed to register user. Invalid email address.");
-            badRegister.setVisibility(View.VISIBLE);
+            tvBadRegister.setText("Failed to register user. Invalid email address.");
+            tvBadRegister.setVisibility(View.VISIBLE);
         }
         if (etFirstName.getText().toString().length() < 2 || etLastName.getText().toString().length() < 2) {
-            badRegister.setText("Failed to register user. Name must be longer.");
-            badRegister.setVisibility(View.VISIBLE);
+            tvBadRegister.setText("Failed to register user. Name must be longer.");
+            tvBadRegister.setVisibility(View.VISIBLE);
         }
         User u = new User(etFirstName.getText().toString() + " " + etLastName.getText().toString(),
                 etEmail.getText().toString(), etUsername.getText().toString(),
                 etPassword.getText().toString(), (String) spAccountType.getSelectedItem());
         if (modelHelper.addUser(u)) {
-            badRegister.setVisibility(View.INVISIBLE);
+            tvBadRegister.setVisibility(View.INVISIBLE);
             Log.d("SUCCESS", "Registration SUCCESSFUL");
             Intent homePageIntent = new Intent(RegisterActivity.this, HomePageActivity.class);
             homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
             RegisterActivity.this.startActivity(homePageIntent);
         } else {
-            badRegister.setText("Failed to register user. Username already taken.");
-            badRegister.setVisibility(View.VISIBLE);
+            tvBadRegister.setText("Failed to register user. Username already taken.");
+            tvBadRegister.setVisibility(View.VISIBLE);
         }
     }
 
@@ -89,9 +85,9 @@ public class RegisterActivity extends AppCompatActivity {
      * This function takes the user back to the login screen without registering a new user
      * @param view View the cancel button
      */
-//    protected void onCancelRegisterPressed(View view) {
-//        Intent homePageIntent = new Intent(RegisterActivity.this, HomePageActivity.class);
-//        RegisterActivity.this.startActivity(homePageIntent);
-//    }
+    protected void onCancelRegisterPressed(View view) {
+        Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+        RegisterActivity.this.startActivity(loginIntent);
+    }
 
 }
