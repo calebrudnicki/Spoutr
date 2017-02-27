@@ -44,8 +44,8 @@
         android:layout_alignParentBottom="true"
         android:id="@+id/bDoneEditing"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:onClick="onDoneEditingPressed" />
+        android:onClick="onDoneEditingPressed"
+        android:layout_toEndOf="@+id/etPassword" />
 
     <TextView
         android:text="Username:"
@@ -73,5 +73,14 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="14dp"
         android:id="@+id/tvUsername" />
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bCancelSettings"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:onClick="onCancelEditingPressed" />
 
 </RelativeLayout>

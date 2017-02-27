@@ -17,6 +17,7 @@ public class SubmitReportActivity extends AppCompatActivity {
     private Spinner spWaterTypes;
     private Spinner spWaterConditions;
     private Button bSubmitReport;
+    private Button bCancelReport;
     private User u;
     private Model modelHelper;
 
@@ -29,6 +30,7 @@ public class SubmitReportActivity extends AppCompatActivity {
         spWaterTypes = (Spinner) findViewById(R.id.spWaterTypes);
         spWaterConditions = (Spinner) findViewById(R.id.spWaterConditions);
         bSubmitReport = (Button) findViewById(R.id.bSubmitReport);
+        bCancelReport = (Button) findViewById(R.id.bCancelReport);
         modelHelper = Model.getInstance();
 
         u = getIntent().getParcelableExtra("SESSION_USER");
@@ -56,6 +58,16 @@ public class SubmitReportActivity extends AppCompatActivity {
             homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
             SubmitReportActivity.this.startActivity(homePageIntent);
         }
+    }
+
+    /**
+     * Takes the user back to the home screen without creating a new report
+     * @param view View the cancel button
+     */
+    protected void onCancelReportPressed(View view) {
+        Intent homePageIntent = new Intent(SubmitReportActivity.this, HomePageActivity.class);
+        homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
+        SubmitReportActivity.this.startActivity(homePageIntent);
     }
 
 }

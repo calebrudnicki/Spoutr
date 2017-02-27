@@ -54,4 +54,15 @@ public class  SettingsActivity extends AppCompatActivity {
         homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
         SettingsActivity.this.startActivity(homePageIntent);
     }
+
+    /**
+     * This function goes back to the user activity page without editing the user's information
+     * @param view View the cancel button
+     */
+    protected void onCancelEditingPressed(View view) {
+        Intent homePageIntent = new Intent(SettingsActivity.this, HomePageActivity.class);
+        homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
+        SettingsActivity.this.startActivity(homePageIntent);
+    }
+
 }
