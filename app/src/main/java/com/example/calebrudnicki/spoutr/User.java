@@ -2,6 +2,7 @@ package com.example.calebrudnicki.spoutr;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
 public class User implements Parcelable, Serializable {
 
     private String name;
+    private String email;
     private String username;
     private String password;
     private String accountType;
@@ -19,12 +21,14 @@ public class User implements Parcelable, Serializable {
     /**
      * This function is the constructor for making a new user
      * @param name String the user's name
+     * @param email String the user's email
      * @param username String the user's username
      * @param password String the user's password
      * @param accountType String the user's type of account
      */
-    public User(String name, String username, String password, String accountType) {
+    public User(String name, String email, String username, String password, String accountType) {
         this.name = name;
+        this.email = email;
         this.username = username;
         this.password = password;
         this.accountType = accountType;
@@ -36,6 +40,22 @@ public class User implements Parcelable, Serializable {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * This function returns the email of the user
+     * @return the user's email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * This function sets the email of the user
+     * @param email String the user's email
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
@@ -79,6 +99,7 @@ public class User implements Parcelable, Serializable {
      */
     private User(Parcel in) {
         name = in.readString();
+        email = in.readString();
         username = in.readString();
         password = in.readString();
         accountType = in.readString();
@@ -92,6 +113,7 @@ public class User implements Parcelable, Serializable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
+        dest.writeString(email);
         dest.writeString(username);
         dest.writeString(password);
         dest.writeString(accountType);

@@ -65,20 +65,32 @@ public class HomePageActivity extends AppCompatActivity
         //This block of code sets up the list view
         listWaterReports = new ArrayList<>();
         for (WaterReport wr : Model.allReports) {
-            listWaterReports.add(wr.getLocation());
+            listWaterReports.add(wr.getLocation() + " - " + wr.getType() + " - " + wr.getCondition());
         }
         lvWaterReports = (ListView) findViewById(R.id.lvWaterReports);
         ArrayAdapter<WaterReport> listViewAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, listWaterReports);
         lvWaterReports.setAdapter(listViewAdapter);
 
         u = getIntent().getParcelableExtra("SESSION_USER");
+        Log.d("TESTERREG4", u.getEmail());
         Log.d("CURRENT USER", "Name: " + u.getName());
+        Log.d("CURRENT USER", "Email: " + u.getEmail());
         Log.d("CURRENT USER", "Username: " + u.getUsername());
         Log.d("CURRENT USER", "Password: " + u.getPassword());
         Log.d("CURRENT USER", "Account Type: " + u.getAccountType());
 
         modelHelper = Model.getInstance();
-        Log.d("WATER REPORTS", "All Reports: " + modelHelper.getAllReports());
+        int counter = 1;
+        for (WaterReport wr : modelHelper.getAllReports()) {
+            Log.d("WATER REPORT #" + counter, "Location: " + wr.getLocation());
+            Log.d("WATER REPORT #" + counter, "Submitter: " + wr.getSubmitter().getUsername());
+            Log.d("WATER REPORT #" + counter, "Date: " + wr.getDateSubmitted());
+            Log.d("WATER REPORT #" + counter, "Water Type: " + wr.getType());
+            Log.d("WATER REPORT #" + counter, "Water Condition : " + wr.getCondition());
+            Log.d("WATER REPORT #" + counter, "ID ##: " + wr.getReportNumber());
+            counter++;
+        }
+        Log.d("WATER REPORTS", "All Reports: " + modelHelper.getAllReports().size());
     }
 
     @Override

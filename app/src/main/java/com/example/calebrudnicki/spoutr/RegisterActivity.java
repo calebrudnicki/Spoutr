@@ -15,6 +15,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText etFirstName;
     private EditText etLastName;
+    private EditText etEmail;
     private EditText etUsername;
     private EditText etPassword;
     private Spinner spAccountType;
@@ -28,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         etFirstName = (EditText) findViewById(R.id.etFirstName);
         etLastName = (EditText) findViewById(R.id.etLastName);
+        etEmail = (EditText) findViewById(R.id.etEmail);
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         spAccountType = (Spinner) findViewById(R.id.spAccountType);
@@ -46,7 +48,9 @@ public class RegisterActivity extends AppCompatActivity {
      * @param view View the register button
      */
     protected void onRegisterPressed(View view) {
-        User u = new User(etFirstName.getText().toString() + " " + etLastName.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString(), (String) spAccountType.getSelectedItem());
+        User u = new User(etFirstName.getText().toString() + " " + etLastName.getText().toString(),
+                etEmail.getText().toString(), etUsername.getText().toString(),
+                etPassword.getText().toString(), (String) spAccountType.getSelectedItem());
         if (modelHelper.addUser(u)) {
             Log.d("SUCCESS", "Registration SUCCESSFUL");
             Intent homePageIntent = new Intent(RegisterActivity.this, HomePageActivity.class);
