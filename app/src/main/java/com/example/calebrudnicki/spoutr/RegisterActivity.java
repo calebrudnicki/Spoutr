@@ -22,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView badRegister;
     private Spinner spAccountType;
     private Button bRegister;
+    private Button bCancelRegister;
     private Model modelHelper;
 
     @Override
@@ -38,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         badRegister = (TextView) findViewById(R.id.badRegister);
         badRegister.setVisibility(View.INVISIBLE);
         bRegister = (Button) findViewById(R.id.bRegister);
+        bCancelRegister = (Button) findViewById(R.id.bCancelRegister);
         modelHelper =  Model.getInstance();
 
         //This block of code sets up the adapter to display the allowable account types in the spinner
@@ -82,5 +84,14 @@ public class RegisterActivity extends AppCompatActivity {
             badRegister.setVisibility(View.VISIBLE);
         }
     }
+
+    /**e
+     * This function takes the user back to the login screen without registering a new user
+     * @param view View the cancel button
+     */
+//    protected void onCancelRegisterPressed(View view) {
+//        Intent homePageIntent = new Intent(RegisterActivity.this, HomePageActivity.class);
+//        RegisterActivity.this.startActivity(homePageIntent);
+//    }
 
 }

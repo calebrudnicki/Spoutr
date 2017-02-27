@@ -49,9 +49,17 @@
         android:text='"username"'
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bDoneEditing"
+        android:layout_alignParentEnd="true"
+        android:onClick="onDoneEditingPressed"
+        android:layout_toEndOf="@+id/etPassword" />
+=======
         android:layout_below="@+id/textView9"
         android:layout_alignParentStart="true"
         android:id="@+id/tvUsername" />
+>>>>>>> c9b01c171bfc810007af4940353eff0a434b3668
 
     <TextView
         android:text="Email:"
@@ -89,5 +97,14 @@
         android:id="@+id/textView13"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bCancelSettings"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:onClick="onCancelEditingPressed" />
 
 </RelativeLayout>
