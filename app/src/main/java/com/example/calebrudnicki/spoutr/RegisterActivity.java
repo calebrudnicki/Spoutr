@@ -70,6 +70,4 @@ public class RegisterActivity extends AppCompatActivity {
 //        RegisterActivity.this.startActivity(homePageIntent);
 //    }
 
-    //delete this line, just trying to push!
-
 }
