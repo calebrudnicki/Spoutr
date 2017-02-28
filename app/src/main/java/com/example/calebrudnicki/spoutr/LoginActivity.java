@@ -18,7 +18,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText etUsername;
     private EditText etPassword;
-    private TextView badLogin;
     private Button bLogin;
     private TextView registerLink;
     private Model modelHelper;
@@ -28,13 +27,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-//        Toast toast = Toast.makeText(this, "hi", Toast.LENGTH_SHORT);
-//        toast.show();
-
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
-        badLogin = (TextView) findViewById(R.id.badLogin);
-        badLogin.setVisibility(View.INVISIBLE);
         bLogin = (Button) findViewById(R.id.bLogin);
         registerLink = (TextView) findViewById(R.id.tvRegisterHere);
         modelHelper = Model.getInstance();
@@ -54,28 +48,20 @@ public class LoginActivity extends AppCompatActivity {
      * @param view View the login button
      */
     protected void onLoginPressed(View view) {
-        boolean hasLogged = false;
+        boolean loginFailed = true;
         for (User u : modelHelper.getAllUsers()) {
             if ((etUsername.getText().toString().equals(u.getUsername())) && (etPassword.getText().toString().equals(u.getPassword()))) {
-                hasLogged = true;
+                loginFailed = false;
                 Intent homePageIntent = new Intent(LoginActivity.this, HomePageActivity.class);
                 homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
                 LoginActivity.this.startActivity(homePageIntent);
             }
         }
-        //If the user failed to log in, display a message and clear the password field
-        if (!hasLogged) {
-            badLogin.setVisibility(View.VISIBLE);
+        if (loginFailed) {
+            Toast toast = Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT);
+            toast.show();
             etPassword.setText(null);
         }
     }
 
-    @Override
-    public void onResume() {
-        //Resets the login page after back button has been pressed
-        super.onResume();
-        etUsername.setText(null);
-        badLogin.setVisibility(View.INVISIBLE);
-        etUsername.requestFocus();
-    }
 }

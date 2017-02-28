@@ -1,6 +1,7 @@
 package com.example.calebrudnicki.spoutr;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,11 +35,20 @@ public class Model {
      * @return true if user was added, false if the username was already taken
     */
     public boolean addUser(User user) {
-            for (User u : allUsers) {
-                if (u.getUsername().equals(user.getUsername())) {
-                    return false;
-                }
+        if (user.getName().length() < 5) {
+            return false;
+        } else if (user.getUsername().length() < 6) {
+            return false;
+        } else if (user.getEmail().length() < 7 && user.getEmail().contains("@")) {
+            return false;
+        } else if (user.getPassword().length() < 6) {
+            return false;
+        }
+        for (User u : allUsers) {
+            if (u.getUsername().equals(user.getUsername())) {
+                return false;
             }
+        }
         allUsers.add(user);
         return true;
     }

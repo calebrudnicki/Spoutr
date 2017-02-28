@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -46,15 +47,19 @@ public class  SettingsActivity extends AppCompatActivity {
      * @param view View the done editing button
      */
     protected void onDoneEditingPressed(View view) {
-        if (etPassword.getText().toString().length() > 5 && etEmail.getText().toString().contains("@")) {
+        if (etPassword.getText().toString().length() > 5 && (etEmail.getText().length() > 7 && etEmail.getText().toString().contains("@"))) {
             modelHelper.updateUser(u, etPassword.getText().toString(), etEmail.getText().toString());
             Intent homePageIntent = new Intent(SettingsActivity.this, HomePageActivity.class);
             homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
             SettingsActivity.this.startActivity(homePageIntent);
         } else if (etPassword.getText().toString().length() <= 5) {
-            Log.d("REGISTRATION FAILED", "Your password needs to be more than 5 characters in length");
+            Toast toast = Toast.makeText(this, "Editing Failed. Your password needs to be at least 6 characters in length", Toast.LENGTH_SHORT);
+            toast.show();
+            etPassword.setText(null);
         } else {
-            Log.d("REGISTRATION FAILED", "Your email needs to include the @ sign");
+            Toast toast = Toast.makeText(this, "Editing Failed. Your email is either not 7 characters in length or there is no @ sign", Toast.LENGTH_SHORT);
+            toast.show();
+            etEmail.setText(null);
         }
     }
 

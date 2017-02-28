@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -19,7 +20,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etUsername;
     private EditText etPassword;
-    private TextView tvBadRegister;
     private Spinner spAccountType;
     private Model modelHelper;
 
@@ -34,8 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         spAccountType = (Spinner) findViewById(R.id.spAccountType);
-        tvBadRegister = (TextView) findViewById(R.id.tvBadRegister);
-        tvBadRegister.setVisibility(View.INVISIBLE);
         modelHelper =  Model.getInstance();
 
         //This block of code sets up the adapter to display the allowable account types in the spinner
@@ -50,42 +48,17 @@ public class RegisterActivity extends AppCompatActivity {
      * @param view View the register button
      */
     protected void onRegisterPressed(View view) {
-        boolean hasRegister = true;
-        if (etPassword.getText().toString().length() < 2) {
-            tvBadRegister.setText("Failed to register user. Password must be longer.");
-            tvBadRegister.setVisibility(View.VISIBLE);
-            hasRegister = false;
-        }
-        if (etUsername.getText().toString().length() < 2) {
-            tvBadRegister.setText("Failed to register user. Username must be longer.");
-            tvBadRegister.setVisibility(View.VISIBLE);
-            hasRegister = false;
-        }
-        if (etEmail.getText().toString().length() < 2 || !etEmail.getText().toString().contains("@")) {
-            tvBadRegister.setText("Failed to register user. Invalid email address.");
-            tvBadRegister.setVisibility(View.VISIBLE);
-            hasRegister = false;
-        }
-        if (etFirstName.getText().toString().length() < 2 || etLastName.getText().toString().length() < 2) {
-            tvBadRegister.setText("Failed to register user. Name must be longer.");
-            tvBadRegister.setVisibility(View.VISIBLE);
-            hasRegister = false;
-        }
         User u = new User(etFirstName.getText().toString() + " " + etLastName.getText().toString(),
                 etEmail.getText().toString(), etUsername.getText().toString(),
                 etPassword.getText().toString(), (String) spAccountType.getSelectedItem());
-        if (hasRegister) {
             if (modelHelper.addUser(u)) {
-                tvBadRegister.setVisibility(View.INVISIBLE);
-                Log.d("SUCCESS", "Registration SUCCESSFUL");
                 Intent homePageIntent = new Intent(RegisterActivity.this, HomePageActivity.class);
                 homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
                 RegisterActivity.this.startActivity(homePageIntent);
             } else {
-                tvBadRegister.setText("Failed to register user. Username already taken.");
-                tvBadRegister.setVisibility(View.VISIBLE);
+                Toast toast = Toast.makeText(this, "Registration Failed. Make sure your credentials meet the requirements", Toast.LENGTH_LONG);
+                toast.show();
             }
-        }
     }
 
     /**e
