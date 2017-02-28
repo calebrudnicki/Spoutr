@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -70,6 +71,13 @@ public class HomePageActivity extends AppCompatActivity
         lvWaterReports = (ListView) findViewById(R.id.lvWaterReports);
         ArrayAdapter<WaterReport> listViewAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, listWaterReports);
         lvWaterReports.setAdapter(listViewAdapter);
+
+        lvWaterReports.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("LIST", parent.getItemAtPosition(position).toString());
+            }
+        });
 
         u = getIntent().getParcelableExtra("SESSION_USER");
         Log.d("TESTERREG4", u.getEmail());
@@ -135,9 +143,7 @@ public class HomePageActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_submitReport) {
+        if (id == R.id.nav_submitReport) {
             Intent submitReportActivityIntent = new Intent(HomePageActivity.this, SubmitReportActivity.class);
             submitReportActivityIntent.putExtra("SESSION_USER", (Parcelable) u);
             HomePageActivity.this.startActivity(submitReportActivityIntent);
@@ -147,11 +153,8 @@ public class HomePageActivity extends AppCompatActivity
             HomePageActivity.this.startActivity(settingsActivityIntent);
         } else if (id == R.id.nav_logout) {
             Intent loginActivityIntent = new Intent(HomePageActivity.this, LoginActivity.class);
+            loginActivityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             HomePageActivity.this.startActivity(loginActivityIntent);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

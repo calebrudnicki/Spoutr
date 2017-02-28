@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -26,6 +27,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+//        Toast toast = Toast.makeText(this, "hi", Toast.LENGTH_SHORT);
+//        toast.show();
 
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
