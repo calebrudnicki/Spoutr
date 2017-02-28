@@ -66,13 +66,15 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 
-    <Spinner
-        android:layout_width="match_parent"
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
-        android:id="@+id/spAccountType"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/bCancelRegister"
+        android:onClick="onCancelRegisterPressed"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="26dp" />
 
     <Button
         android:text="Register"
@@ -80,35 +82,27 @@
         android:layout_height="wrap_content"
         android:id="@+id/bRegister"
         android:onClick="onRegisterPressed"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/tvBadRegister" />
+        android:layout_alignBaseline="@+id/bCancelRegister"
+        android:layout_alignBottom="@+id/bCancelRegister"
+        android:layout_alignParentEnd="true" />
 
-    <Button
-        android:text="Cancel"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bCancelRegister"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/tvBadRegister"
-        android:onClick="onCancelRegisterPressed" />
-
-    <TextView
-        android:text="Account Type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bRegister"
-        android:onClick="onRegisterPressed"
-        android:layout_below="@+id/etPassword"
+        android:id="@+id/spAccountType"
+        android:layout_centerVertical="true"
         android:layout_alignParentStart="true" />
 
     <TextView
         android:text="Error Message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#FF0000"
         android:id="@+id/tvBadRegister"
+        android:layout_marginTop="15dp"
         android:layout_below="@+id/spAccountType"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

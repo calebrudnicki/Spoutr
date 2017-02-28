@@ -50,34 +50,41 @@ public class RegisterActivity extends AppCompatActivity {
      * @param view View the register button
      */
     protected void onRegisterPressed(View view) {
+        boolean hasRegister = true;
         if (etPassword.getText().toString().length() < 2) {
             tvBadRegister.setText("Failed to register user. Password must be longer.");
             tvBadRegister.setVisibility(View.VISIBLE);
+            hasRegister = false;
         }
         if (etUsername.getText().toString().length() < 2) {
             tvBadRegister.setText("Failed to register user. Username must be longer.");
             tvBadRegister.setVisibility(View.VISIBLE);
+            hasRegister = false;
         }
         if (etEmail.getText().toString().length() < 2 || !etEmail.getText().toString().contains("@")) {
             tvBadRegister.setText("Failed to register user. Invalid email address.");
             tvBadRegister.setVisibility(View.VISIBLE);
+            hasRegister = false;
         }
         if (etFirstName.getText().toString().length() < 2 || etLastName.getText().toString().length() < 2) {
             tvBadRegister.setText("Failed to register user. Name must be longer.");
             tvBadRegister.setVisibility(View.VISIBLE);
+            hasRegister = false;
         }
         User u = new User(etFirstName.getText().toString() + " " + etLastName.getText().toString(),
                 etEmail.getText().toString(), etUsername.getText().toString(),
                 etPassword.getText().toString(), (String) spAccountType.getSelectedItem());
-        if (modelHelper.addUser(u)) {
-            tvBadRegister.setVisibility(View.INVISIBLE);
-            Log.d("SUCCESS", "Registration SUCCESSFUL");
-            Intent homePageIntent = new Intent(RegisterActivity.this, HomePageActivity.class);
-            homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
-            RegisterActivity.this.startActivity(homePageIntent);
-        } else {
-            tvBadRegister.setText("Failed to register user. Username already taken.");
-            tvBadRegister.setVisibility(View.VISIBLE);
+        if (hasRegister) {
+            if (modelHelper.addUser(u)) {
+                tvBadRegister.setVisibility(View.INVISIBLE);
+                Log.d("SUCCESS", "Registration SUCCESSFUL");
+                Intent homePageIntent = new Intent(RegisterActivity.this, HomePageActivity.class);
+                homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
+                RegisterActivity.this.startActivity(homePageIntent);
+            } else {
+                tvBadRegister.setText("Failed to register user. Username already taken.");
+                tvBadRegister.setVisibility(View.VISIBLE);
+            }
         }
     }
 
