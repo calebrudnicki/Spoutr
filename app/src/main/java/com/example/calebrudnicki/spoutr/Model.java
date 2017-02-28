@@ -109,11 +109,15 @@ public class Model {
     public void loadDummyData() {
         User caleb = new User("Caleb Rudnicki", "crudnicki@gmail.com", "crudnicki", "crudnicki", "User");
         allUsers.add(caleb);
-        allUsers.add(new User("Kendal Lin", "klin@gmail.com", "klin", "klin123", "User"));
-        allUsers.add(new User("Chloe Belangia", "cbelangia@gmail.com", "cbelangia", "cbelangia", "User"));
+        User kendal = new User("Kendal Lin", "klin@gmail.com", "klin123", "klin123", "User");
+        allUsers.add(kendal);
+        User chloe = new User("Chloe Belangia", "cbelangia@gmail.com", "cbelangia", "cbelangia", "User");
+        allUsers.add(chloe);
         allUsers.add(new User("Jack McCormack", "jmccormack@gmail.com", "jmccormack", "jmccormack", "User"));
         allUsers.add(new User("Rachel Techau", "rtechau@gmail.com", "rtechau", "rtechau", "User"));
-        allReports.add(new WaterReport(caleb, "Yesterday", "New York City", "Well", "Potable", 222));
+        allReports.add(new WaterReport(caleb, "12/15/1996 14:15:32", "New York City", "Well", "Potable", 1));
+        allReports.add(new WaterReport(kendal, "04/29/1997 10:42:54", "Atlanta", "Bottled", "Muddy", 2));
+        allReports.add(new WaterReport(chloe, "03/09/2001 23:37:01", "Boston", "River", "Potable", 3));
     }
 
 }

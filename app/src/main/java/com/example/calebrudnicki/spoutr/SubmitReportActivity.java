@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class SubmitReportActivity extends AppCompatActivity {
 
     private EditText etLocation;
@@ -52,7 +55,8 @@ public class SubmitReportActivity extends AppCompatActivity {
      * @param view View the register button
      */
     protected void onSubmitReportPressed(View view) {
-        WaterReport newReport = new WaterReport(u, "Today", etLocation.getText().toString(), spWaterTypes.getSelectedItem().toString(), spWaterConditions.getSelectedItem().toString(), 111);
+        String date = new SimpleDateFormat("MM/dd/yyyy - HH:mm:ss").format(Calendar.getInstance().getTime());
+        WaterReport newReport = new WaterReport(u, date, etLocation.getText().toString(), spWaterTypes.getSelectedItem().toString(), spWaterConditions.getSelectedItem().toString(), 111);
         if (modelHelper.addWaterReport(newReport)) {
             Intent homePageIntent = new Intent(SubmitReportActivity.this, HomePageActivity.class);
             homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
