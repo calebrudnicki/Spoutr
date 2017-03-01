@@ -36,7 +36,6 @@ public class HomePageActivity extends AppCompatActivity
     private WaterReport wr;
     private Model modelHelper;
     private List<String> listWaterReports;
-//    private List<String> listWaterReports1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
