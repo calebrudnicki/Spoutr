@@ -75,7 +75,8 @@ public class HomePageActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("LIST", parent.getItemAtPosition(position).toString());
-                //Log.d("LIST", parent.getItemAtPosition(position));
+                Intent mapActivityIntent = new Intent(HomePageActivity.this, MapActivity.class);
+                HomePageActivity.this.startActivity(mapActivityIntent);
             }
         });
 
