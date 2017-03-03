@@ -1,5 +1,6 @@
 package com.example.calebrudnicki.spoutr;
 
+import android.location.Location;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -115,9 +116,18 @@ public class Model {
         allUsers.add(chloe);
         allUsers.add(new User("Jack McCormack", "jmccormack@gmail.com", "jmccormack", "jmccormack", "User"));
         allUsers.add(new User("Rachel Techau", "rtechau@gmail.com", "rtechau", "rtechau", "User"));
-        allReports.add(new WaterReport(caleb, "12/15/1996 14:15:32", "New York City", "Well", "Potable", 1));
-        allReports.add(new WaterReport(kendal, "04/29/1997 10:42:54", "Atlanta", "Bottled", "Muddy", 2));
-        allReports.add(new WaterReport(chloe, "03/09/2001 23:37:01", "Boston", "River", "Potable", 3));
+        Location coopersquare = new Location("Cooper Square");
+        coopersquare.setLatitude(40.728484);
+        coopersquare.setLongitude(-73.990653);
+        Location ocala = new Location("Ocala");
+        ocala.setLatitude(29.187199);
+        ocala.setLongitude(-82.140092);
+        Location loomischaffee = new Location("Loomis Chaffee");
+        loomischaffee.setLatitude(41.844137);
+        loomischaffee.setLongitude(-72.639610);
+        allReports.add(new WaterReport(caleb, "12/15/1996 14:15:32", coopersquare, "Well", "Potable", 1));
+        allReports.add(new WaterReport(kendal, "04/29/1997 10:42:54", ocala, "Bottled", "Muddy", 2));
+        allReports.add(new WaterReport(chloe, "03/09/2001 23:37:01", loomischaffee, "River", "Potable", 3));
     }
 
 }

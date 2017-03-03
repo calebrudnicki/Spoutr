@@ -1,5 +1,6 @@
 package com.example.calebrudnicki.spoutr;
 
+import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -12,7 +13,7 @@ import java.io.Serializable;
 public class WaterReport implements Parcelable {
     private User submitter;
     private String dateSubmitted;
-    private String location;
+    private Location location;
     private String type;
     private String condition;
     private int reportNumber;
@@ -20,7 +21,7 @@ public class WaterReport implements Parcelable {
     /**
      * This function is the constructor to make a new water report
      */
-    public WaterReport(User submitter, String dateSubmitted, String location, String type, String condition, int reportNumber) {
+    public WaterReport(User submitter, String dateSubmitted, Location location, String type, String condition, int reportNumber) {
         this.submitter = submitter;
         this.dateSubmitted = dateSubmitted;
         this.location = location;
@@ -45,7 +46,7 @@ public class WaterReport implements Parcelable {
      * This function returns the location of the water report
      * @return the location of water report
      */
-    public String getLocation() { return location; }
+    public Location getLocation() { return location; }
 
     /**
      * This function returns the type of the water
@@ -72,7 +73,7 @@ public class WaterReport implements Parcelable {
     private WaterReport(Parcel in) {
         submitter = (User) in.readSerializable();
         dateSubmitted = in.readString();
-        location = in.readString();
+        location = in.readParcelable(Location.class.getClassLoader());
         type = in.readString();
         condition = in.readString();
         reportNumber = in.readInt();
@@ -85,7 +86,7 @@ public class WaterReport implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeSerializable(submitter);
         dest.writeString(dateSubmitted);
-        dest.writeString(location);
+        dest.writeParcelable(location, flags);
         dest.writeString(type);
         dest.writeString(condition);
         dest.writeInt(reportNumber);

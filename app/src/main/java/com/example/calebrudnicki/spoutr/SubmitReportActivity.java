@@ -1,7 +1,11 @@
 package com.example.calebrudnicki.spoutr;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Parcelable;
+import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,8 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 public class SubmitReportActivity extends AppCompatActivity {
 
@@ -51,12 +57,33 @@ public class SubmitReportActivity extends AppCompatActivity {
     }
 
     /**
+     * This function uses the text field to geocode the address into a set of coordinates
+     */
+    private Location findCoordinates() throws IOException {
+        Geocoder gc = new Geocoder(this);
+        List<Address> list = gc.getFromLocationName(etLocation.getText().toString(), 1);
+        Address add = list.get(0);
+        String locality = add.getLocality();
+        double lat = add.getLatitude();
+        double lng = add.getLongitude();
+        Log.d("LOCATION", "Latitude: " + lat);
+        Log.d("LOCATION", "Longitude: " + lng);
+        Location location = new Location("location");
+        location.setLatitude(lat);
+        location.setLongitude(lng);
+        return location;
+    }
+
+    /**
      * This function creates a new water report once the submit water report is pressed
      * @param view View the register button
      */
-    protected void onSubmitReportPressed(View view) {
+    protected void onSubmitReportPressed(View view) throws IOException {
         String date = new SimpleDateFormat("MM/dd/yyyy - HH:mm:ss").format(Calendar.getInstance().getTime());
-        WaterReport newReport = new WaterReport(u, date, etLocation.getText().toString(), spWaterTypes.getSelectedItem().toString(), spWaterConditions.getSelectedItem().toString(), 111);
+        Location location = findCoordinates();
+        Log.d("LOCATION1", "Latitude: " + location.getLatitude());
+        Log.d("LOCATION1", "Longitude: " + location.getLongitude());
+        WaterReport newReport = new WaterReport(u, date, location, spWaterTypes.getSelectedItem().toString(), spWaterConditions.getSelectedItem().toString(), 111);
         if (modelHelper.addWaterReport(newReport)) {
             Intent homePageIntent = new Intent(SubmitReportActivity.this, HomePageActivity.class);
             homePageIntent.putExtra("SESSION_USER", (Parcelable) u);

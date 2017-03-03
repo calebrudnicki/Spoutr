@@ -35,7 +35,7 @@ public class HomePageActivity extends AppCompatActivity
     private User u;
     private WaterReport wr;
     private Model modelHelper;
-    private List<String> listWaterReports;
+    private List<WaterReport> listWaterReports;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class HomePageActivity extends AppCompatActivity
         //This block of code sets up the list view
         listWaterReports = new ArrayList<>();
         for (WaterReport wr : Model.allReports) {
-            listWaterReports.add(wr.getLocation() + " - " + wr.getType() + " - " + wr.getCondition() + " - " + wr.getDateSubmitted() + " - " + wr.getSubmitter().getName());
+            listWaterReports.add(wr);
         }
         lvWaterReports = (ListView) findViewById(R.id.lvWaterReports);
         ArrayAdapter<WaterReport> listViewAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, listWaterReports);
@@ -76,12 +76,13 @@ public class HomePageActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("LIST", parent.getItemAtPosition(position).toString());
                 Intent mapActivityIntent = new Intent(HomePageActivity.this, MapActivity.class);
+
+                mapActivityIntent.putExtra("SELECTED_LOCATION", (Parcelable) parent.getItemAtPosition(position));
                 HomePageActivity.this.startActivity(mapActivityIntent);
             }
         });
 
         u = getIntent().getParcelableExtra("SESSION_USER");
-        Log.d("TESTERREG4", u.getEmail());
         Log.d("CURRENT USER", "Name: " + u.getName());
         Log.d("CURRENT USER", "Email: " + u.getEmail());
         Log.d("CURRENT USER", "Username: " + u.getUsername());
