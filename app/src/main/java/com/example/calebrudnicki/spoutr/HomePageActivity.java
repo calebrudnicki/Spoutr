@@ -19,10 +19,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,12 +73,13 @@ public class HomePageActivity extends AppCompatActivity
         ArrayAdapter<WaterReport> listViewAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, listWaterReports);
         lvWaterReports.setAdapter(listViewAdapter);
 
+
         lvWaterReports.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("LIST", parent.getItemAtPosition(position).toString());
                 Intent mapActivityIntent = new Intent(HomePageActivity.this, MapActivity.class);
-
+                mapActivityIntent.putExtra("ONE_LOCATION", true);
                 mapActivityIntent.putExtra("SELECTED_LOCATION", (Parcelable) parent.getItemAtPosition(position));
                 HomePageActivity.this.startActivity(mapActivityIntent);
             }
@@ -97,7 +100,7 @@ public class HomePageActivity extends AppCompatActivity
             Log.d("WATER REPORT #" + counter, "Date: " + wr.getDateSubmitted());
             Log.d("WATER REPORT #" + counter, "Water Type: " + wr.getType());
             Log.d("WATER REPORT #" + counter, "Water Condition : " + wr.getCondition());
-            Log.d("WATER REPORT #" + counter, "ID ##: " + wr.getReportNumber());
+            Log.d("WATER REPORT #" + counter, "ID #: " + wr.getReportNumber());
             counter++;
         }
         Log.d("WATER REPORTS", "All Reports: " + modelHelper.getAllReports().size());
@@ -132,7 +135,11 @@ public class HomePageActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_map) {
+            Intent mapActivityIntent = new Intent(HomePageActivity.this, MapActivity.class);
+            mapActivityIntent.putExtra("ONE_LOCATION", false);
+            mapActivityIntent.putExtra("ALL_LOCATIONS", (Serializable) listWaterReports);
+            HomePageActivity.this.startActivity(mapActivityIntent);
             return true;
         }
 

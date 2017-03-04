@@ -12,10 +12,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.Serializable;
+import java.util.List;
+
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Boolean showingOneLocation;
     private WaterReport selectedReport;
+    private List<WaterReport> allReports;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +31,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        selectedReport = getIntent().getParcelableExtra("SELECTED_LOCATION");
+        //This takes in a value and decides whether to show one location or many locations
+        showingOneLocation = getIntent().getBooleanExtra("ONE_LOCATION", true);
+        if (showingOneLocation) {
+            selectedReport = getIntent().getParcelableExtra("SELECTED_LOCATION");
+        } else {
+            allReports = getIntent().getParcelableArrayListExtra("ALL_LOCATIONS");
+        }
     }
 
 
@@ -42,10 +53,36 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        if (showingOneLocation) {
+            String markerMessage = selectedReport.getType() + "\n" + selectedReport.getReportNumber() + "\n" + selectedReport.getSubmitter().getName();
+            // Add a marker at current location and move the camera
+            LatLng shownLocation = new LatLng(selectedReport.getLocation().getLatitude(), selectedReport.getLocation().getLongitude());
+            mMap.addMarker(new MarkerOptions().position(shownLocation).title(markerMessage));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(shownLocation, 15));
+        } else {
+            for (WaterReport wr : allReports) {
+                LatLng shownLocation = new LatLng(wr.getLocation().getLatitude(), wr.getLocation().getLongitude());
+                mMap.addMarker(new MarkerOptions().position(shownLocation).title("Place"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(findAverageLatLng(allReports)));
+            }
+        }
+    }
 
-        // Add a marker at current location and move the camera
-        LatLng shownLocation = new LatLng(selectedReport.getLocation().getLatitude(), selectedReport.getLocation().getLongitude());
-        mMap.addMarker(new MarkerOptions().position(shownLocation).title(selectedReport.getType()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(shownLocation));
+    /**
+     * This functions takes in a list of water reports and find the average latitude and longitude of the points
+     * @param reports List of Water Report objects
+     * @return the average latitude and longitude points of all the locations
+     */
+    private LatLng findAverageLatLng(List<WaterReport> reports) {
+        double lat = 0.0;
+        double lng = 0.0;
+        for (WaterReport wr : reports) {
+            lat += wr.getLocation().getLatitude();
+            lng += wr.getLocation().getLongitude();
+        }
+        lat = lat / reports.size();
+        lng = lng / reports.size();
+        LatLng averageLatLng = new LatLng(lat, lng);
+        return averageLatLng;
     }
 }
