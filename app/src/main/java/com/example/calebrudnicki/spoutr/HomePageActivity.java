@@ -50,8 +50,10 @@ public class HomePageActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent mapActivityIntent = new Intent(HomePageActivity.this, MapActivity.class);
+                mapActivityIntent.putExtra("ONE_LOCATION", false);
+                mapActivityIntent.putExtra("ALL_LOCATIONS", (Serializable) listWaterReports);
+                HomePageActivity.this.startActivity(mapActivityIntent);
             }
         });
 
@@ -125,25 +127,6 @@ public class HomePageActivity extends AppCompatActivity
         tvName.setText(u.getName());
         tvUsername.setText(u.getUsername());
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_map) {
-            Intent mapActivityIntent = new Intent(HomePageActivity.this, MapActivity.class);
-            mapActivityIntent.putExtra("ONE_LOCATION", false);
-            mapActivityIntent.putExtra("ALL_LOCATIONS", (Serializable) listWaterReports);
-            HomePageActivity.this.startActivity(mapActivityIntent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
