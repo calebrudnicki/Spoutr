@@ -38,6 +38,7 @@ public class HomePageActivity extends AppCompatActivity
     private WaterReport wr;
     private Model modelHelper;
     private List<WaterReport> listWaterReports;
+    private List<String> listWaterReportsString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class HomePageActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //This block of code sends the user to a map of all locations when the floating button is tapped
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,18 +70,19 @@ public class HomePageActivity extends AppCompatActivity
 
         //This block of code sets up the list view
         listWaterReports = new ArrayList<>();
+        listWaterReportsString = new ArrayList<>();
         for (WaterReport wr : Model.allReports) {
             listWaterReports.add(wr);
+            listWaterReportsString.add(wr.getCondition());
         }
+
         lvWaterReports = (ListView) findViewById(R.id.lvWaterReports);
         ArrayAdapter<WaterReport> listViewAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, listWaterReports);
         lvWaterReports.setAdapter(listViewAdapter);
 
-
         lvWaterReports.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("LIST", parent.getItemAtPosition(position).toString());
                 Intent mapActivityIntent = new Intent(HomePageActivity.this, MapActivity.class);
                 mapActivityIntent.putExtra("ONE_LOCATION", true);
                 mapActivityIntent.putExtra("SELECTED_LOCATION", (Parcelable) parent.getItemAtPosition(position));
@@ -88,24 +91,8 @@ public class HomePageActivity extends AppCompatActivity
         });
 
         u = getIntent().getParcelableExtra("SESSION_USER");
-        Log.d("CURRENT USER", "Name: " + u.getName());
-        Log.d("CURRENT USER", "Email: " + u.getEmail());
-        Log.d("CURRENT USER", "Username: " + u.getUsername());
-        Log.d("CURRENT USER", "Password: " + u.getPassword());
-        Log.d("CURRENT USER", "Account Type: " + u.getAccountType());
-
         modelHelper = Model.getInstance();
-        int counter = 1;
-        for (WaterReport wr : modelHelper.getAllReports()) {
-            Log.d("WATER REPORT #" + counter, "Location: " + wr.getLocation());
-            Log.d("WATER REPORT #" + counter, "Submitter: " + wr.getSubmitter().getUsername());
-            Log.d("WATER REPORT #" + counter, "Date: " + wr.getDateSubmitted());
-            Log.d("WATER REPORT #" + counter, "Water Type: " + wr.getType());
-            Log.d("WATER REPORT #" + counter, "Water Condition : " + wr.getCondition());
-            Log.d("WATER REPORT #" + counter, "ID #: " + wr.getReportNumber());
-            counter++;
-        }
-        Log.d("WATER REPORTS", "All Reports: " + modelHelper.getAllReports().size());
+
     }
 
     @Override

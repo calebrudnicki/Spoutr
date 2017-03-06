@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class SubmitReportActivity extends AppCompatActivity {
 
@@ -29,6 +30,7 @@ public class SubmitReportActivity extends AppCompatActivity {
     private Button bCancelReport;
     private User u;
     private Model modelHelper;
+    private Location enteredLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,20 +60,36 @@ public class SubmitReportActivity extends AppCompatActivity {
 
     /**
      * This function uses the text field to geocode the address into a set of coordinates
+     * @return the location of the coordinates
      */
     private Location findCoordinates() throws IOException {
         Geocoder gc = new Geocoder(this);
         List<Address> list = gc.getFromLocationName(etLocation.getText().toString(), 1);
         Address add = list.get(0);
-        String locality = add.getLocality();
         double lat = add.getLatitude();
         double lng = add.getLongitude();
-        Log.d("LOCATION", "Latitude: " + lat);
-        Log.d("LOCATION", "Longitude: " + lng);
-        Location location = new Location("location");
+        Location location = new Location("ENTERED_LOCATION");
         location.setLatitude(lat);
         location.setLongitude(lng);
         return location;
+    }
+
+    /**
+     * This functions takes in a location object and returns the location's city
+     * @param location the location that you want to find the city of
+     * @return the city of the location
+     * @throws IOException thrown if the object passed in is invalid
+     */
+    private String findAddress(Location location) throws IOException {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+        //String address = addresses.get(0).getAddressLine(0);
+        String city = addresses.get(0).getLocality();
+        //String state = addresses.get(0).getAdminArea();
+        //String country = addresses.get(0).getCountryName();
+        //String postalCode = addresses.get(0).getPostalCode();
+        //String knownName = addresses.get(0).getFeatureName();
+        return city;
     }
 
     /**
@@ -81,9 +99,8 @@ public class SubmitReportActivity extends AppCompatActivity {
     protected void onSubmitReportPressed(View view) throws IOException {
         String date = new SimpleDateFormat("MM/dd/yyyy - HH:mm:ss").format(Calendar.getInstance().getTime());
         Location location = findCoordinates();
-        Log.d("LOCATION1", "Latitude: " + location.getLatitude());
-        Log.d("LOCATION1", "Longitude: " + location.getLongitude());
-        WaterReport newReport = new WaterReport(u, date, location, spWaterTypes.getSelectedItem().toString(), spWaterConditions.getSelectedItem().toString(), 111);
+        String locationString = findAddress(location);
+        WaterReport newReport = new WaterReport(u, date, location, locationString, spWaterTypes.getSelectedItem().toString(), spWaterConditions.getSelectedItem().toString(), 111);
         if (modelHelper.addWaterReport(newReport)) {
             Intent homePageIntent = new Intent(SubmitReportActivity.this, HomePageActivity.class);
             homePageIntent.putExtra("SESSION_USER", (Parcelable) u);

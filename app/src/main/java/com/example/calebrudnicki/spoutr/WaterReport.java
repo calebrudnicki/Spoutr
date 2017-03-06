@@ -1,10 +1,17 @@
 package com.example.calebrudnicki.spoutr;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by kendallin on 2/21/17.
@@ -14,6 +21,7 @@ public class WaterReport implements Parcelable {
     private User submitter;
     private String dateSubmitted;
     private Location location;
+    private String locationString;
     private String type;
     private String condition;
     private int reportNumber;
@@ -21,10 +29,11 @@ public class WaterReport implements Parcelable {
     /**
      * This function is the constructor to make a new water report
      */
-    public WaterReport(User submitter, String dateSubmitted, Location location, String type, String condition, int reportNumber) {
+    public WaterReport(User submitter, String dateSubmitted, Location location, String locationString, String type, String condition, int reportNumber) {
         this.submitter = submitter;
         this.dateSubmitted = dateSubmitted;
         this.location = location;
+        this.locationString = locationString;
         this.type = type;
         this.condition = condition;
         this.reportNumber = reportNumber;
@@ -32,39 +41,75 @@ public class WaterReport implements Parcelable {
 
     /**
      * This function returns the name of the submitter
+     *
      * @return the user who submitted
      */
-    public User getSubmitter() { return submitter; }
+    public User getSubmitter() {
+        return submitter;
+    }
 
     /**
      * This function returns the date that the water report was submitted
+     *
      * @return the date it was submitted
      */
-    public String getDateSubmitted() { return dateSubmitted; }
+    public String getDateSubmitted() {
+        return dateSubmitted;
+    }
+
+    /**
+     * This function returns the string location of the water report
+     *
+     * @return the string location of water report
+     */
+    public String getLocationString() {
+        return locationString;
+    }
 
     /**
      * This function returns the location of the water report
+     *
      * @return the location of water report
      */
-    public Location getLocation() { return location; }
+    public Location getLocation() {
+        return location;
+    }
 
     /**
      * This function returns the type of the water
+     *
      * @return the type of water
      */
-    public String getType() { return type; }
+    public String getType() {
+        return type;
+    }
 
     /**
      * This function returns the condition of the water
+     *
      * @return the condition of water
      */
-    public String getCondition() { return condition; }
+    public String getCondition() {
+        return condition;
+    }
 
     /**
      * This function returns the report number
+     *
      * @return the report number
      */
-    public int getReportNumber() { return reportNumber; }
+    public int getReportNumber() {
+        return reportNumber;
+    }
+
+    /**
+     * This function overrides the toString method to display water reports in the list view
+     * @return the string of some data from the water report
+     */
+    @Override
+    public String toString() {
+        return this.getLocationString() + " - " + this.getType() + " - " + this.getCondition();
+    }
 
     /**
      * This function is the parcelable constructor for making a new water report
@@ -74,6 +119,7 @@ public class WaterReport implements Parcelable {
         submitter = (User) in.readSerializable();
         dateSubmitted = in.readString();
         location = in.readParcelable(Location.class.getClassLoader());
+        locationString = in.readString();
         type = in.readString();
         condition = in.readString();
         reportNumber = in.readInt();
@@ -87,6 +133,7 @@ public class WaterReport implements Parcelable {
         dest.writeSerializable(submitter);
         dest.writeString(dateSubmitted);
         dest.writeParcelable(location, flags);
+        dest.writeString(locationString);
         dest.writeString(type);
         dest.writeString(condition);
         dest.writeInt(reportNumber);

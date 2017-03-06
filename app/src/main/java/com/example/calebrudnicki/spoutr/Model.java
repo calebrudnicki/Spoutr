@@ -125,9 +125,9 @@ public class Model {
         Location loomischaffee = new Location("Loomis Chaffee");
         loomischaffee.setLatitude(41.844137);
         loomischaffee.setLongitude(-72.639610);
-        allReports.add(new WaterReport(caleb, "12/15/1996 14:15:32", coopersquare, "Well", "Potable", 1));
-        allReports.add(new WaterReport(kendal, "04/29/1997 10:42:54", ocala, "Bottled", "Muddy", 2));
-        allReports.add(new WaterReport(chloe, "03/09/2001 23:37:01", loomischaffee, "River", "Potable", 3));
+        allReports.add(new WaterReport(caleb, "12/15/1996 14:15:32", coopersquare, "New York City", "Well", "Potable", 1));
+        allReports.add(new WaterReport(kendal, "04/29/1997 10:42:54", ocala, "Ocala", "Bottled", "Muddy", 2));
+        allReports.add(new WaterReport(chloe, "03/09/2001 23:37:01", loomischaffee, "Windsor", "River", "Potable", 3));
     }
 
 }
