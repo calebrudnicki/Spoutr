@@ -1,15 +1,23 @@
 package com.example.calebrudnicki.spoutr;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.Serializable;
@@ -54,15 +62,15 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         if (showingOneLocation) {
-            String markerMessage = selectedReport.getType() + "\n" + selectedReport.getReportNumber() + "\n" + selectedReport.getSubmitter().getName();
-            // Add a marker at current location and move the camera
+            String markerTitle = selectedReport.getLocationString() + " - Submitted by " + selectedReport.getSubmitter().getName();
             LatLng shownLocation = new LatLng(selectedReport.getLocation().getLatitude(), selectedReport.getLocation().getLongitude());
-            mMap.addMarker(new MarkerOptions().position(shownLocation).title(markerMessage));
+            mMap.addMarker(new MarkerOptions().position(shownLocation).title(markerTitle).snippet(selectedReport.getType() + " - " + selectedReport.getCondition()));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(shownLocation, 15));
         } else {
             for (WaterReport wr : allReports) {
+                String markerTitle = wr.getLocationString() + " - Submitted by " + wr.getSubmitter().getName();
                 LatLng shownLocation = new LatLng(wr.getLocation().getLatitude(), wr.getLocation().getLongitude());
-                mMap.addMarker(new MarkerOptions().position(shownLocation).title("Place"));
+                mMap.addMarker(new MarkerOptions().position(shownLocation).title(markerTitle).snippet(wr.getType() + " - " + wr.getCondition()));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(findAverageLatLng(allReports)));
             }
         }
@@ -85,4 +93,5 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         LatLng averageLatLng = new LatLng(lat, lng);
         return averageLatLng;
     }
+
 }
