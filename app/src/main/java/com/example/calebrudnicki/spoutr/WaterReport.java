@@ -24,7 +24,7 @@ public class WaterReport implements Parcelable {
     private String locationString;
     private String type;
     private String condition;
-    private int reportNumber;
+    private static int reportNumber = 0;
 
     /**
      * This function is the constructor to make a new water report
@@ -37,6 +37,7 @@ public class WaterReport implements Parcelable {
         this.type = type;
         this.condition = condition;
         this.reportNumber = reportNumber;
+        reportNumber++;
     }
 
     /**
