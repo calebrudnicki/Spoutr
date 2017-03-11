@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -38,7 +39,6 @@ public class HomePageActivity extends AppCompatActivity
     private WaterReport wr;
     private Model modelHelper;
     private List<WaterReport> listWaterReports;
-    private List<String> listWaterReportsString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +70,8 @@ public class HomePageActivity extends AppCompatActivity
 
         //This block of code sets up the list view
         listWaterReports = new ArrayList<>();
-        listWaterReportsString = new ArrayList<>();
         for (WaterReport wr : Model.allReports) {
             listWaterReports.add(wr);
-            listWaterReportsString.add(wr.getCondition());
         }
 
         lvWaterReports = (ListView) findViewById(R.id.lvWaterReports);
@@ -126,6 +124,15 @@ public class HomePageActivity extends AppCompatActivity
             Intent submitReportActivityIntent = new Intent(HomePageActivity.this, SubmitReportActivity.class);
             submitReportActivityIntent.putExtra("SESSION_USER", (Parcelable) u);
             HomePageActivity.this.startActivity(submitReportActivityIntent);
+        } else if (id == R.id.nav_submitPurityReport) {
+            if (!u.getAccountType().equals("User")) {
+                Intent submitPurityReportActivityIntent = new Intent(HomePageActivity.this, SubmitPurityReportActivity.class);
+                submitPurityReportActivityIntent.putExtra("SESSION_USER", (Parcelable) u);
+                HomePageActivity.this.startActivity(submitPurityReportActivityIntent);
+            } else {
+                Toast toast = Toast.makeText(this, "As a User, you cannot submit a purity report", Toast.LENGTH_LONG);
+                toast.show();
+            }
         } else if (id == R.id.nav_settings) {
             Intent settingsActivityIntent = new Intent(HomePageActivity.this, SettingsActivity.class);
             settingsActivityIntent.putExtra("SESSION_USER", (Parcelable) u);

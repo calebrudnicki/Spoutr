@@ -45,7 +45,6 @@ public class SubmitReportActivity extends AppCompatActivity {
         modelHelper = Model.getInstance();
 
         u = getIntent().getParcelableExtra("SESSION_USER");
-        Log.d("SUBMIT", "User to submit: " + u.getUsername());
 
         //This function sets up the adapter to display the allowable water types in the spinner
         ArrayAdapter<String> waterTypeAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Model.waterTypes);
