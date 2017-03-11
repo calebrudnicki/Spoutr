@@ -99,12 +99,13 @@ public class SubmitReportActivity extends AppCompatActivity {
         String date = new SimpleDateFormat("MM/dd/yyyy - HH:mm:ss").format(Calendar.getInstance().getTime());
         Location location = findCoordinates();
         String locationString = findAddress(location);
-        WaterReport newReport = new WaterReport(u, date, location, locationString, spWaterTypes.getSelectedItem().toString(), spWaterConditions.getSelectedItem().toString(), 111);
+        WaterReport newReport = new WaterReport(u, date, location, locationString, spWaterTypes.getSelectedItem().toString(), spWaterConditions.getSelectedItem().toString());
         if (modelHelper.addWaterReport(newReport)) {
             Intent homePageIntent = new Intent(SubmitReportActivity.this, HomePageActivity.class);
             homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
             SubmitReportActivity.this.startActivity(homePageIntent);
         }
+        Log.d("REPORT NUMBER", "here: " + newReport.getReportNumber());
     }
 
     /**

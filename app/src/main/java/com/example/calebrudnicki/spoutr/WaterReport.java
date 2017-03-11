@@ -10,6 +10,7 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,18 +26,18 @@ public class WaterReport implements Parcelable {
     private String type;
     private String condition;
     private static int reportNumber = 0;
+    private List<PurityReport> prList = new ArrayList<>();
 
     /**
      * This function is the constructor to make a new water report
      */
-    public WaterReport(User submitter, String dateSubmitted, Location location, String locationString, String type, String condition, int reportNumber) {
+    public WaterReport(User submitter, String dateSubmitted, Location location, String locationString, String type, String condition) {
         this.submitter = submitter;
         this.dateSubmitted = dateSubmitted;
         this.location = location;
         this.locationString = locationString;
         this.type = type;
         this.condition = condition;
-        this.reportNumber = reportNumber;
         reportNumber++;
     }
 
@@ -104,6 +105,23 @@ public class WaterReport implements Parcelable {
     }
 
     /**
+     * This function returns the list of purity reports
+     *
+     * @return the list of purity reports
+     */
+    public List<PurityReport> getPrList() { return prList; }
+
+    /**
+     * This function adds a purity report to a water report
+     * @param pr PurityReport of this water report
+     */
+    public boolean addToPRList(PurityReport pr) {
+        prList.add(pr);
+        Log.d("WATERREPORT", "SIZE: " + prList.size());
+        return true;
+    }
+
+    /**
      * This function overrides the toString method to display water reports in the list view
      * @return the string of some data from the water report
      */
@@ -111,6 +129,8 @@ public class WaterReport implements Parcelable {
     public String toString() {
         return this.getLocationString() + " - " + this.getType() + " - " + this.getCondition();
     }
+
+    //Parcelable Stuff
 
     /**
      * This function is the parcelable constructor for making a new water report

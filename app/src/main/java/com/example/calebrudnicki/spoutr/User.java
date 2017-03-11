@@ -90,8 +90,7 @@ public class User implements Parcelable, Serializable {
         return accountType;
     }
 
-
-    //Parcelable stuff
+    //Parcelable Stuff
 
     /**
      * This function is the parcelable constructor for making a new user

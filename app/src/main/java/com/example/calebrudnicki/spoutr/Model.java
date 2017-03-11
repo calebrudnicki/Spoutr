@@ -20,6 +20,7 @@ public class Model {
     public static List<String> accountTypes = Arrays.asList("User", "Worker", "Manager", "Admin");
     public static List<String> waterTypes = Arrays.asList("Well", "Stream", "River", "Spring", "Bottled", "Lake");
     public static List<String> waterConditions = Arrays.asList("Waste", "Treatable Clear", "Treatable Muddy", "Potable");
+    public static List<String> purityConditions = Arrays.asList("Safe", "Treatable", "Unsafe");
 
     /**
      * This function is the constructor for model, making an empty array list for users and reports
@@ -108,7 +109,7 @@ public class Model {
      * This functions loads dummy data into the model to allow for smooth testing
      */
     public void loadDummyData() {
-        User caleb = new User("Caleb Rudnicki", "crudnicki@gmail.com", "crudnicki", "crudnicki", "User");
+        User caleb = new User("Caleb Rudnicki", "crudnicki@gmail.com", "crudnicki", "crudnicki", "Manager");
         allUsers.add(caleb);
         User kendal = new User("Kendal Lin", "klin@gmail.com", "klin123", "klin123", "User");
         allUsers.add(kendal);
@@ -125,9 +126,9 @@ public class Model {
         Location loomischaffee = new Location("Loomis Chaffee");
         loomischaffee.setLatitude(41.844137);
         loomischaffee.setLongitude(-72.639610);
-        allReports.add(new WaterReport(caleb, "12/15/1996 14:15:32", coopersquare, "New York City", "Well", "Potable", 1));
-        allReports.add(new WaterReport(kendal, "04/29/1997 10:42:54", ocala, "Ocala", "Bottled", "Muddy", 2));
-        allReports.add(new WaterReport(chloe, "03/09/2001 23:37:01", loomischaffee, "Windsor", "River", "Potable", 3));
+        allReports.add(new WaterReport(caleb, "12/15/1996 14:15:32", coopersquare, "New York City", "Well", "Potable"));
+        allReports.add(new WaterReport(kendal, "04/29/1997 10:42:54", ocala, "Ocala", "Bottled", "Muddy"));
+        allReports.add(new WaterReport(chloe, "03/09/2001 23:37:01", loomischaffee, "Windsor", "River", "Potable"));
     }
 
 }
