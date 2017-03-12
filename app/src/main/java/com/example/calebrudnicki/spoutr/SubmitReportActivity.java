@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -64,13 +65,18 @@ public class SubmitReportActivity extends AppCompatActivity {
     private Location findCoordinates() throws IOException {
         Geocoder gc = new Geocoder(this);
         List<Address> list = gc.getFromLocationName(etLocation.getText().toString(), 1);
-        Address add = list.get(0);
-        double lat = add.getLatitude();
-        double lng = add.getLongitude();
-        Location location = new Location("ENTERED_LOCATION");
-        location.setLatitude(lat);
-        location.setLongitude(lng);
-        return location;
+        if (list.size() > 0) {
+            Address add = list.get(0);
+            double lat = add.getLatitude();
+            double lng = add.getLongitude();
+            Location location = new Location("ENTERED_LOCATION");
+            location.setLatitude(lat);
+            location.setLongitude(lng);
+            return location;
+        } else {
+            return null;
+        }
+
     }
 
     /**
@@ -82,12 +88,18 @@ public class SubmitReportActivity extends AppCompatActivity {
     private String findAddress(Location location) throws IOException {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-        //String address = addresses.get(0).getAddressLine(0);
+        String address = addresses.get(0).getAddressLine(0);
         String city = addresses.get(0).getLocality();
-        //String state = addresses.get(0).getAdminArea();
-        //String country = addresses.get(0).getCountryName();
-        //String postalCode = addresses.get(0).getPostalCode();
-        //String knownName = addresses.get(0).getFeatureName();
+        String state = addresses.get(0).getAdminArea();
+        String country = addresses.get(0).getCountryName();
+        String postalCode = addresses.get(0).getPostalCode();
+        String knownName = addresses.get(0).getFeatureName();
+        Log.d("GEOCODER", "Address: " + address);
+        Log.d("GEOCODER", "City: " + city);
+        Log.d("GEOCODER", "State: " + state);
+        Log.d("GEOCODER", "Country: " + country);
+        Log.d("GEOCODER", "Postal Code: " + postalCode);
+        Log.d("GEOCODER", "Known Name: " + knownName);
         return city;
     }
 
@@ -98,14 +110,20 @@ public class SubmitReportActivity extends AppCompatActivity {
     protected void onSubmitReportPressed(View view) throws IOException {
         String date = new SimpleDateFormat("MM/dd/yyyy - HH:mm:ss").format(Calendar.getInstance().getTime());
         Location location = findCoordinates();
-        String locationString = findAddress(location);
-        WaterReport newReport = new WaterReport(u, date, location, locationString, spWaterTypes.getSelectedItem().toString(), spWaterConditions.getSelectedItem().toString());
-        if (modelHelper.addWaterReport(newReport)) {
-            Intent homePageIntent = new Intent(SubmitReportActivity.this, HomePageActivity.class);
-            homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
-            SubmitReportActivity.this.startActivity(homePageIntent);
+        if (location != null) {
+            String locationString = findAddress(location);
+            WaterReport newReport = new WaterReport(u, date, location, locationString, spWaterTypes.getSelectedItem().toString(), spWaterConditions.getSelectedItem().toString());
+            if (modelHelper.addWaterReport(newReport)) {
+                Intent homePageIntent = new Intent(SubmitReportActivity.this, HomePageActivity.class);
+                homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
+                SubmitReportActivity.this.startActivity(homePageIntent);
+            }
+            Log.d("REPORT NUMBER", "here: " + newReport.getReportNumber());
+        } else {
+            Toast toast = Toast.makeText(this, "Couldn't find a match for your location. Try a broader area", Toast.LENGTH_SHORT);
+            toast.show();
+            etLocation.setText(null);
         }
-        Log.d("REPORT NUMBER", "here: " + newReport.getReportNumber());
     }
 
     /**
