@@ -21,6 +21,7 @@ public class Model {
     public static List<String> waterTypes = Arrays.asList("Well", "Stream", "River", "Spring", "Bottled", "Lake");
     public static List<String> waterConditions = Arrays.asList("Waste", "Treatable Clear", "Treatable Muddy", "Potable");
     public static List<String> purityConditions = Arrays.asList("Safe", "Treatable", "Unsafe");
+    public static List<PurityReport> allPurityReports;
 
     /**
      * This function is the constructor for model, making an empty array list for users and reports
@@ -106,6 +107,14 @@ public class Model {
     public static Model getInstance() { return instance; }
 
     /**
+     * This function returns the list of all the water reports
+     * @return the list of all reports
+     */
+    public List<PurityReport> getAllPurityReports() {
+        return allPurityReports;
+    }
+
+    /**
      * This functions loads dummy data into the model to allow for smooth testing
      */
     public void loadDummyData() {
@@ -116,7 +125,7 @@ public class Model {
         User chloe = new User("Chloe Belangia", "cbelangia@gmail.com", "cbelangia", "cbelangia", "User");
         allUsers.add(chloe);
         allUsers.add(new User("Jack McCormack", "jmccormack@gmail.com", "jmccormack", "jmccormack", "User"));
-        allUsers.add(new User("Rachel Techau", "rtechau@gmail.com", "rtechau", "rtechau", "User"));
+        allUsers.add(new User("Rachel Techau", "rtechau@gmail.com", "rtechau", "rtechau", "Manager"));
         Location coopersquare = new Location("Cooper Square");
         coopersquare.setLatitude(40.728484);
         coopersquare.setLongitude(-73.990653);
