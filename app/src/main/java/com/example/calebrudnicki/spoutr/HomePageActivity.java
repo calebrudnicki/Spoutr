@@ -89,6 +89,16 @@ public class HomePageActivity extends AppCompatActivity
             }
         });
 
+        lvWaterReports.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent purityInfoActivityIntent = new Intent(HomePageActivity.this, PurityInfoActivity.class);
+                purityInfoActivityIntent.putExtra("SELECTED_LOCATION", ( (WaterReport) parent.getItemAtPosition(position)));
+                HomePageActivity.this.startActivity(purityInfoActivityIntent);
+                return true;
+            }
+        });
+
         u = getIntent().getParcelableExtra("SESSION_USER");
         modelHelper = Model.getInstance();
 

@@ -44,7 +44,8 @@
         <activity
             android:name=".MapActivity"
             android:label="@string/title_activity_map" />
-        <activity android:name=".SubmitPurityReportActivity"></activity>
+        <activity android:name=".SubmitPurityReportActivity" />
+        <activity android:name=".PurityInfoActivity"></activity>
     </application>
 
 </manifest>

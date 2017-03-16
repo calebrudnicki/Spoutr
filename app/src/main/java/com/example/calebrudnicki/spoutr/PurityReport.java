@@ -1,5 +1,6 @@
 package com.example.calebrudnicki.spoutr;
 
+import android.icu.text.PluralRules;
 import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,7 +9,7 @@ import android.os.Parcelable;
  * Created by calebrudnicki on 3/11/17.
  */
 
-public class PurityReport {
+public class PurityReport implements Parcelable {
 
     private User submitter;
     private String dateSubmitted;
@@ -94,5 +95,59 @@ public class PurityReport {
     public int getReportNumber() {
         return reportNumber;
     }
+
+    /**
+     * This function overrides the toString method to display purity reports in the list view
+     * @return the string of some data from the purity report
+     */
+    @Override
+    public String toString() {
+        return this.getCondition() + " - " + this.getVirusPPM() + " - " + this.getContaminantPPM();
+    }
+
+
+
+    //Parcelable Stuff
+
+    /**
+     * This function is the parcelable constructor for making a new user
+     * @param in Parcel the user's parcel info
+     */
+    private PurityReport(Parcel in) {
+        submitter = (User) in.readSerializable();
+        dateSubmitted = in.readString();
+        location = in.readParcelable(Location.class.getClassLoader());
+        locationString = in.readString();
+        condition = in.readString();
+        virusPPM = in.readInt();
+        contaminantPPM = in.readInt();
+        reportNumber = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeSerializable(submitter);
+        dest.writeString(dateSubmitted);
+        dest.writeParcelable(location, flags);
+        dest.writeString(locationString);
+        dest.writeString(condition);
+        dest.writeInt(virusPPM);
+        dest.writeInt(contaminantPPM);
+        dest.writeInt(reportNumber);
+    }
+
+    public static final Parcelable.Creator<PurityReport> CREATOR = new Parcelable.Creator<PurityReport>() {
+        public PurityReport createFromParcel(Parcel in) {
+            return new PurityReport(in);
+        }
+        public PurityReport[] newArray(int size) {
+            return new PurityReport[size];
+        }
+    };
 
 }

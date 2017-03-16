@@ -117,7 +117,6 @@ public class WaterReport implements Parcelable {
      */
     public boolean addToPRList(PurityReport pr) {
         prList.add(pr);
-        Log.d("WATERREPORT", "SIZE: " + prList.size());
         return true;
     }
 
@@ -133,8 +132,8 @@ public class WaterReport implements Parcelable {
     //Parcelable Stuff
 
     /**
-     * This function is the parcelable constructor for making a new water report
-     * @param in Parcel the water report's parcel info
+     * This function is the parcelable constructor for making a new purity report
+     * @param in Parcel the purity report's parcel info
      */
     private WaterReport(Parcel in) {
         submitter = (User) in.readSerializable();
@@ -144,6 +143,7 @@ public class WaterReport implements Parcelable {
         type = in.readString();
         condition = in.readString();
         reportNumber = in.readInt();
+        prList = in.readArrayList(PurityReport.class.getClassLoader());
     }
 
     @Override
@@ -158,6 +158,7 @@ public class WaterReport implements Parcelable {
         dest.writeString(type);
         dest.writeString(condition);
         dest.writeInt(reportNumber);
+        dest.writeList(prList);
     }
 
     public static final Parcelable.Creator<WaterReport> CREATOR = new Parcelable.Creator<WaterReport>() {
