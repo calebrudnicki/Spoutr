@@ -26,7 +26,6 @@ public class PurityInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_purity_info);
 
         selectedReport = getIntent().getParcelableExtra("SELECTED_LOCATION");
-        Log.d("Purity", "Purity Report List Size: " + selectedReport.getPrList().size());
 
         //This block of code sets up the list view
         listPurityReports = new ArrayList<>();
