@@ -17,6 +17,7 @@ public class Model {
     private static final Model instance = new Model();
     public static List<User> allUsers;
     public static List<WaterReport> allReports;
+    public static List<PurityReport> allPurityReports;
     public static List<String> accountTypes = Arrays.asList("User", "Worker", "Manager", "Admin");
     public static List<String> waterTypes = Arrays.asList("Well", "Stream", "River", "Spring", "Bottled", "Lake");
     public static List<String> waterConditions = Arrays.asList("Waste", "Treatable Clear", "Treatable Muddy", "Potable");
@@ -28,6 +29,7 @@ public class Model {
     public Model() {
         allUsers = new ArrayList<>();
         allReports = new ArrayList<>();
+        allPurityReports = new ArrayList<>();
         loadDummyData();
     }
 
@@ -62,6 +64,19 @@ public class Model {
      */
     public boolean addWaterReport(WaterReport report) {
         allReports.add(report);
+        return true;
+    }
+
+    /**
+     * This function adds a purity report to the list of water reports
+     * @param pr PurityReport the new purity report
+     * @return true when the purity report was added
+     */
+    public boolean addPurityReport(PurityReport pr) {
+        if (pr.getLocation() == null) {
+            return false;
+        }
+        allPurityReports.add(pr);
         return true;
     }
 
@@ -104,14 +119,6 @@ public class Model {
      * @return the list of all users
      */
     public static Model getInstance() { return instance; }
-
-//    /**
-//     * This function returns the list of all the water reports
-//     * @return the list of all reports
-//     */
-//    public List<PurityReport> getAllPurityReports() {
-//        return allPurityReports;
-//    }
 
     /**
      * This functions loads dummy data into the model to allow for smooth testing

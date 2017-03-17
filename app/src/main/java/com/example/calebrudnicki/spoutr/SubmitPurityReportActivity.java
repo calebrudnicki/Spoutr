@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class SubmitPurityReportActivity extends AppCompatActivity {
     private Button bCancelPurityReport;
     private User u;
     private WaterReport selectedReport;
+    private Model modelHelper;
+    private boolean hasSelectedWaterReport = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +46,9 @@ public class SubmitPurityReportActivity extends AppCompatActivity {
         etContaminantPPM = (EditText) findViewById(R.id.etContaminantPPM);
         bSubmitPurityReport = (Button) findViewById(R.id.bSubmitPurityReport);
         bCancelPurityReport = (Button) findViewById(R.id.bCancelPurityReport);
+        modelHelper = Model.getInstance();
 
         u = getIntent().getParcelableExtra("SESSION_USER");
-        Log.d("PURITY", "User: " + u.getUsername());
 
         //This block of code sets up the adapter to display the allowable account types in the spinner
         ArrayAdapter<String> purityConditionAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Model.purityConditions);
@@ -67,6 +70,7 @@ public class SubmitPurityReportActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedReport = (WaterReport) parent.getItemAtPosition(position);
                 tvSelectedWaterReport.setText("Selected Water Report: " + selectedReport.getLocationString());
+                hasSelectedWaterReport = true;
             }
         });
     }
@@ -77,11 +81,18 @@ public class SubmitPurityReportActivity extends AppCompatActivity {
      */
     protected void onSubmitPurityReportPressed(View view) {
         String date = new SimpleDateFormat("MM/dd/yyyy - HH:mm:ss").format(Calendar.getInstance().getTime());
-        PurityReport pr = new PurityReport(u, date, selectedReport.getLocation(), spPurityConditions.getSelectedItem().toString(), Integer.valueOf(etVirusPPM.getText().toString()), Integer.valueOf(etContaminantPPM.getText().toString()));
-        selectedReport.addToPRList(pr);
-        Intent homePageIntent = new Intent(SubmitPurityReportActivity.this, HomePageActivity.class);
-        homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
-        SubmitPurityReportActivity.this.startActivity(homePageIntent);
+        if (hasSelectedWaterReport == true) {
+            PurityReport pr = new PurityReport(u, date, selectedReport.getLocation(), spPurityConditions.getSelectedItem().toString(), Integer.valueOf(etVirusPPM.getText().toString()), Integer.valueOf(etContaminantPPM.getText().toString()));
+            if (modelHelper.addPurityReport(pr)) {
+                selectedReport.addToPRList(pr);
+                Intent homePageIntent = new Intent(SubmitPurityReportActivity.this, HomePageActivity.class);
+                homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
+                SubmitPurityReportActivity.this.startActivity(homePageIntent);
+            }
+        } else {
+            Toast toast = Toast.makeText(this, "You didn't enter all the necessary info. Try again.", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     /**
