@@ -53,15 +53,14 @@ public class LoginActivity extends AppCompatActivity {
      */
     protected void onLoginPressed(View view) {
         boolean loginFailed = true;
-        for (User u : modelHelper.getAllUsers()) {
-            if ((etUsername.getText().toString().equals(u.getUsername())) && (etPassword.getText().toString().equals(u.getPassword()))) {
-                loginFailed = false;
-                Intent homePageIntent = new Intent(LoginActivity.this, HomePageActivity.class);
-                homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
-                LoginActivity.this.startActivity(homePageIntent);
-            }
-        }
-        if (loginFailed) {
+        DatabaseHandler db = new DatabaseHandler(this);
+        if (db.validateLogin(etUsername.getText().toString(), etPassword.getText().toString())) {
+            loginFailed = false;
+            User u = db.getUser(etUsername.getText().toString());
+            Intent homePageIntent = new Intent(LoginActivity.this, HomePageActivity.class);
+            homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
+            LoginActivity.this.startActivity(homePageIntent);
+        } else {
             Toast toast = Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT);
             toast.show();
             etPassword.setText(null);

@@ -48,7 +48,9 @@ public class  SettingsActivity extends AppCompatActivity {
      */
     protected void onDoneEditingPressed(View view) {
         if (etPassword.getText().toString().length() > 5 && (etEmail.getText().length() > 7 && etEmail.getText().toString().contains("@"))) {
-            modelHelper.updateUser(u, etPassword.getText().toString(), etEmail.getText().toString());
+            DatabaseHandler db = new DatabaseHandler(this);
+            db.updateInfo(u, etPassword.getText().toString(), etEmail.getText().toString());
+            u = db.getUser(u.getUsername());
             Intent homePageIntent = new Intent(SettingsActivity.this, HomePageActivity.class);
             homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
             SettingsActivity.this.startActivity(homePageIntent);

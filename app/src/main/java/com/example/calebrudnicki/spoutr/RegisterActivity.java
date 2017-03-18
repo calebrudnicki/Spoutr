@@ -51,14 +51,16 @@ public class RegisterActivity extends AppCompatActivity {
         User u = new User(etFirstName.getText().toString() + " " + etLastName.getText().toString(),
                 etEmail.getText().toString(), etUsername.getText().toString(),
                 etPassword.getText().toString(), (String) spAccountType.getSelectedItem());
-            if (modelHelper.addUser(u)) {
-                Intent homePageIntent = new Intent(RegisterActivity.this, HomePageActivity.class);
-                homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
-                RegisterActivity.this.startActivity(homePageIntent);
-            } else {
-                Toast toast = Toast.makeText(this, "Registration Failed. Make sure your credentials meet the requirements", Toast.LENGTH_LONG);
-                toast.show();
-            }
+
+        DatabaseHandler db = new DatabaseHandler(this);
+        if (db.addUser(u)) {
+            Intent homePageIntent = new Intent(RegisterActivity.this, HomePageActivity.class);
+            homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
+            RegisterActivity.this.startActivity(homePageIntent);
+        } else {
+            Toast toast = Toast.makeText(this, "Registration Failed. Make sure your credentials meet the requirements", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     /**e
