@@ -4,6 +4,7 @@ import android.icu.text.PluralRules;
 import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 /**
  * Created by calebrudnicki on 3/11/17.
@@ -18,7 +19,8 @@ public class PurityReport implements Parcelable {
     private String condition;
     private int virusPPM;
     private int contaminantPPM;
-    private static int reportNumber = 0;
+    private int reportNumber;
+    private static int reportCounter = 0;
 
     /**
      * This function is the constructor to make a new purity report
@@ -30,7 +32,7 @@ public class PurityReport implements Parcelable {
         this.condition = condition;
         this.virusPPM = virusPPM;
         this.contaminantPPM = contaminantPPM;
-        reportNumber++;
+        this.reportNumber = reportCounter++;
     }
 
     /**
@@ -105,7 +107,23 @@ public class PurityReport implements Parcelable {
         return this.getCondition() + " - " + this.getVirusPPM() + " - " + this.getContaminantPPM();
     }
 
-
+    /**
+     * This function returns the month that the purity report was submitted
+     *
+     * @return the month it was submitted
+     */
+    public int getMonthSubmitted() {
+        int monthSubmitted = 0;
+        String str = String.valueOf(this.getDateSubmitted().charAt(0));
+        if (str.equals("0")) {
+            str = String.valueOf(this.getDateSubmitted().charAt(1));
+            monthSubmitted = Integer.parseInt(str);
+        } else {
+            str += String.valueOf(this.getDateSubmitted().charAt(1));
+            monthSubmitted = Integer.parseInt(str);
+        }
+        return monthSubmitted;
+    }
 
     //Parcelable Stuff
 

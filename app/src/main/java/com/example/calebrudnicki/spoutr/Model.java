@@ -21,6 +21,7 @@ public class Model {
     public static List<String> waterTypes = Arrays.asList("Well", "Stream", "River", "Spring", "Bottled", "Lake");
     public static List<String> waterConditions = Arrays.asList("Waste", "Treatable Clear", "Treatable Muddy", "Potable");
     public static List<String> purityConditions = Arrays.asList("Safe", "Treatable", "Unsafe");
+    public static List<String> purityGraphTypes = Arrays.asList("Virus", "Contaminant");
 
     /**
      * This function is the constructor for model, making an empty array list for users and reports
@@ -28,6 +29,7 @@ public class Model {
     public Model() {
         allReports = new ArrayList<>();
         allPurityReports = new ArrayList<>();
+        loadDummyData();
     }
 
     /**
@@ -63,8 +65,44 @@ public class Model {
      */
     public static Model getInstance() { return instance; }
 
+
     /**
      * This functions loads dummy data into the model to allow for smooth testing
      */
+    private void loadDummyData() {
+        User bob = new User("Bob Waters", "bwater@gatech.edu", "bobwaters", "csiffun", "User");
 
+        Location coopersquare = new Location("Cooper Square");
+        coopersquare.setLatitude(40.728484);
+        coopersquare.setLongitude(-73.990653);
+
+        Location ocala = new Location("Ocala");
+        ocala.setLatitude(29.187199);
+        ocala.setLongitude(-82.140092);
+
+        Location loomischaffee = new Location("Loomis Chaffee");
+        loomischaffee.setLatitude(41.844137);
+        loomischaffee.setLongitude(-72.639610);
+
+        allReports.add(new WaterReport(bob, "12/15/1996 14:15:32", coopersquare, "New York City", "Well", "Potable"));
+        allReports.add(new WaterReport(bob, "04/29/1997 10:42:54", ocala, "Ocala", "Bottled", "Muddy"));
+        WaterReport lcWR = new WaterReport(bob, "03/09/2001 23:37:01", loomischaffee, "Windsor", "River", "Potable");
+
+        PurityReport lcPR1 = new PurityReport(bob, "01/21/2017", loomischaffee, "Safe", 23, 45);
+        PurityReport lcPR2 = new PurityReport(bob, "03/21/2017", loomischaffee, "Safe", 33, 10);
+        PurityReport lcPR3 = new PurityReport(bob, "05/21/2017", loomischaffee, "Safe", 11, 82);
+        PurityReport lcPR4 = new PurityReport(bob, "08/21/2017", loomischaffee, "Safe", 36, 32);
+
+        allPurityReports.add(lcPR1);
+        allPurityReports.add(lcPR2);
+        allPurityReports.add(lcPR3);
+        allPurityReports.add(lcPR4);
+
+        lcWR.addToPRList(lcPR1);
+        lcWR.addToPRList(lcPR2);
+        lcWR.addToPRList(lcPR3);
+        lcWR.addToPRList(lcPR4);
+        allReports.add(lcWR);
+
+    }
 }

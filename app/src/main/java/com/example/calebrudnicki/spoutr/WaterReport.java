@@ -25,7 +25,8 @@ public class WaterReport implements Parcelable {
     private String locationString;
     private String type;
     private String condition;
-    private static int reportNumber = 0;
+    private int reportNumber;
+    private static int reportCounter = 0;
     private List<PurityReport> prList = new ArrayList<>();
 
     /**
@@ -38,7 +39,7 @@ public class WaterReport implements Parcelable {
         this.locationString = locationString;
         this.type = type;
         this.condition = condition;
-        reportNumber++;
+        this.reportNumber = reportCounter++;
     }
 
     /**

@@ -10,10 +10,36 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.calebrudnicki.spoutr.PurityInfoActivity">
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spGraphType"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/bUpdateGraph"
+        android:layout_alignTop="@+id/bUpdateGraph" />
+
+    <Button
+        android:text="Update Graph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/bUpdateGraph"
+        android:onClick="onUpdateGraphPressed" />
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        android:id="@+id/gHistoricalPPM"
+        android:layout_above="@+id/spGraphType"
+        android:layout_alignParentStart="true" />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/lvPurityReports" />
+        android:id="@+id/lvPurityReports"
+        android:layout_marginBottom="205dp"
+        android:layout_above="@+id/spGraphType"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
