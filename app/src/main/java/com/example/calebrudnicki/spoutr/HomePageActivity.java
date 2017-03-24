@@ -81,7 +81,6 @@ public class HomePageActivity extends AppCompatActivity
         lvWaterReports.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("HOME", "Purity Report List Size: " + ((WaterReport) parent.getItemAtPosition(position)).getPrList().size());
                 Intent mapActivityIntent = new Intent(HomePageActivity.this, MapActivity.class);
                 mapActivityIntent.putExtra("ONE_LOCATION", true);
                 mapActivityIntent.putExtra("SELECTED_LOCATION", (Parcelable) parent.getItemAtPosition(position));
@@ -92,9 +91,10 @@ public class HomePageActivity extends AppCompatActivity
         lvWaterReports.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (u.getAccountType().equals("Manager")) {
+                WaterReport chosenReport = (WaterReport) parent.getItemAtPosition(position);
+                if (u.getAccountType().equals("Manager") && chosenReport.getPrList().size() > 0) {
                     Intent purityInfoActivityIntent = new Intent(HomePageActivity.this, PurityInfoActivity.class);
-                    purityInfoActivityIntent.putExtra("SELECTED_LOCATION", ( (WaterReport) parent.getItemAtPosition(position)));
+                    purityInfoActivityIntent.putExtra("SELECTED_LOCATION", chosenReport);
                     HomePageActivity.this.startActivity(purityInfoActivityIntent);
                     return true;
                 }

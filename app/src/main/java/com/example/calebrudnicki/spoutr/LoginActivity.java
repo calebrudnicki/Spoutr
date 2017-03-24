@@ -52,10 +52,10 @@ public class LoginActivity extends AppCompatActivity {
      * @param view View the login button
      */
     protected void onLoginPressed(View view) {
-        boolean loginFailed = true;
+        //boolean loginFailed = true;
         DatabaseHandler db = new DatabaseHandler(this);
         if (db.validateLogin(etUsername.getText().toString(), etPassword.getText().toString())) {
-            loginFailed = false;
+            //loginFailed = false;
             User u = db.getUser(etUsername.getText().toString());
             Intent homePageIntent = new Intent(LoginActivity.this, HomePageActivity.class);
             homePageIntent.putExtra("SESSION_USER", (Parcelable) u);

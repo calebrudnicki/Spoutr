@@ -17,6 +17,7 @@ public class User implements Parcelable, Serializable {
     private String username;
     private String password;
     private String accountType;
+    private int attemptedLogins;
 
     /**
      * This function is the constructor for making a new user
@@ -32,6 +33,7 @@ public class User implements Parcelable, Serializable {
         this.username = username;
         this.password = password;
         this.accountType = accountType;
+        this.attemptedLogins = 0;
     }
 
     /**
@@ -90,6 +92,22 @@ public class User implements Parcelable, Serializable {
         return accountType;
     }
 
+    /**
+     * This function returns the amount of login attempts by the user
+     * @return the user's number of attempted logins
+     */
+    public int getAttemptedLogins() {
+        return attemptedLogins;
+    }
+
+    /**
+     * This function sets the the amount of login attempts by the user
+     * @param loginAttempts int the user's amount of login attempts
+     */
+    public void setAttemptedLogins(int loginAttempts) {
+        this.attemptedLogins = attemptedLogins++;
+    }
+
     //Parcelable Stuff
 
     /**
@@ -102,6 +120,7 @@ public class User implements Parcelable, Serializable {
         username = in.readString();
         password = in.readString();
         accountType = in.readString();
+        attemptedLogins = in.readInt();
     }
 
     @Override
@@ -116,6 +135,7 @@ public class User implements Parcelable, Serializable {
         dest.writeString(username);
         dest.writeString(password);
         dest.writeString(accountType);
+        dest.writeInt(attemptedLogins);
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
