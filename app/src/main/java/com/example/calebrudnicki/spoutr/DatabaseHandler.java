@@ -25,7 +25,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    // Creating Tables
+    /**
+     * This function will create the USER INFO table in the database
+     * @param db an instance of the database
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USERINFO_TABLE = "CREATE TABLE " + TABLE_USERINFO + "("
@@ -35,7 +38,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_USERINFO_TABLE);
     }
 
-    // Upgrading database
+    /**
+     * This function will upgrade the database
+     * @param db an instance of the database
+     * @param oldVersion the old version number
+     * @param newVersion the new version number
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
@@ -45,6 +53,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * This function attempts to add a User into the USER INFO table
+     * @param user the user being added to the database
+     * @return a boolean showing whether the user was added or not
+     */
     public boolean addUser(User user) {
         //Check if Username is already taken
         if (hasUser(user)) {
@@ -66,6 +79,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * This function takes a User and checks to see if it is contained in the table
+     * @param user the User being checked in the USER INFO table
+     * @return a boolean telling whether the User is in the table or not
+     */
     public boolean hasUser(User user) {
         String username = user.getUsername();
         boolean hasUser = false;
@@ -85,6 +103,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return hasUser;
     }
 
+    /**
+     * This function takes two string, username and password, and attempts to validate
+     * the login by checking them against the data in the USER INFO table.
+     * @param username the username of the person attempting to log in
+     * @param password the password of the person attempting to log in
+     * @return a boolean telling whether the username and password are a match in the table
+     */
     public boolean validateLogin(String username, String password) {
         String selectQuery = "SELECT * FROM " + TABLE_USERINFO;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -108,6 +133,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return false;
     }
 
+    /**
+     * This function will update the password and email address of a User
+     * @param user the user who is trying to update their info
+     * @param password the new password of the user
+     * @param email the new email of the user
+     * @return the number of rows affected
+     */
     public int updateInfo(User user, String password, String email) {
         String username = user.getUsername();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -120,6 +152,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return db.update(TABLE_USERINFO, values, KEY_USERNAME + " = ?", new String[]{username});
     }
 
+    /**
+     * This function takes in a username and searches the USER INFO table to find the associated User
+     * @param username the username of the user we are trying to get
+     * @return the User that belongs to the username passed in
+     */
     public User getUser(String username) {
         String selectQuery = "SELECT * FROM " + TABLE_USERINFO;
         SQLiteDatabase db = this.getReadableDatabase();
