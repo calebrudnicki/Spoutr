@@ -48,22 +48,31 @@ public class RegisterActivity extends AppCompatActivity {
      * @param view View the register button
      */
     protected void onRegisterPressed(View view) {
+        //Check user input for meeting the credential requirements
+        if (etFirstName.getText().toString().length() < 3 || etLastName.getText().toString().length() < 3 ||
+                etEmail.getText().toString().length() < 6 || !etEmail.getText().toString().contains("@") ||
+                etUsername.getText().toString().length() < 6 || etPassword.getText().toString().length() < 6) {
+            Toast toast = Toast.makeText(this, "Registration Failed. Make sure your credentials meet the requirements", Toast.LENGTH_LONG);
+            toast.show();
+            return;
+        }
+        //Create user and attempt to add into the database
         User u = new User(etFirstName.getText().toString() + " " + etLastName.getText().toString(),
                 etEmail.getText().toString(), etUsername.getText().toString(),
                 etPassword.getText().toString(), (String) spAccountType.getSelectedItem());
-
         DatabaseHandler db = new DatabaseHandler(this);
         if (db.addUser(u)) {
             Intent homePageIntent = new Intent(RegisterActivity.this, HomePageActivity.class);
             homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
             RegisterActivity.this.startActivity(homePageIntent);
         } else {
-            Toast toast = Toast.makeText(this, "Registration Failed. Make sure your credentials meet the requirements", Toast.LENGTH_LONG);
+            //Credentials meet requirements but the username is already taken
+            Toast toast = Toast.makeText(this, "Registration Failed. Username already taken.", Toast.LENGTH_LONG);
             toast.show();
         }
     }
 
-    /**e
+    /**
      * This function takes the user back to the login screen without registering a new user
      * @param view View the cancel button
      */
