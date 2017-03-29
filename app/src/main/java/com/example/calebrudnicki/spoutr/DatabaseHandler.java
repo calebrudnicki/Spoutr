@@ -9,10 +9,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.location.Location;
+import java.util.List;
+import java.util.ArrayList;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "Spoutr Database";
+
     private static final String TABLE_USERINFO = "userinfo";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
@@ -21,12 +25,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_ACCOUNT = "account";
     private static final String KEY_ID = "id";
 
+    private static final String TABLE_WATERREPORTS = "waterreports";
+    private static final String KEY_USERNAME2 = "username";
+    private static final String KEY_DATE = "date";
+    private static final String KEY_LOCATION = "location";
+    private static final String KEY_DOUBLE1 = "double1";
+    private static final String KEY_DOUBLE2 = "double2";
+    private static final String KEY_LOCATIONSTRING = "locationString";
+    private static final String KEY_TYPE = "type";
+    private static final String KEY_CONDITION = "condition";
+    private static final String KEY_ID2 = "id";
+
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     /**
-     * This function will create the USER INFO table in the database
+     * This function will create the USER INFO and WATER REPORTS tables in the database
      * @param db an instance of the database
      */
     @Override
@@ -34,8 +49,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_USERINFO_TABLE = "CREATE TABLE " + TABLE_USERINFO + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_USERNAME + " TEXT,"
                 + KEY_PASSWORD + " TEXT," + KEY_NAME + " TEXT," + KEY_EMAIL
-                + " TEXT, " + KEY_ACCOUNT + " TEXT" + ")";
+                + " TEXT," + KEY_ACCOUNT + " TEXT" + ")";
         db.execSQL(CREATE_USERINFO_TABLE);
+
+        String CREATE_WATERREPORT_TABLE = "CREATE TABLE " + TABLE_WATERREPORTS + "("
+                + KEY_ID2 + " INTEGER PRIMARY KEY," + KEY_USERNAME2 + " TEXT,"
+                + KEY_DATE + " TEXT," + KEY_LOCATION + " TEXT," + KEY_DOUBLE1
+                + " TEXT," + KEY_DOUBLE2 + " TEXT," + KEY_LOCATIONSTRING
+                + " TEXT," + KEY_TYPE + " TEXT," + KEY_CONDITION + " TEXT" + ")";
+        db.execSQL(CREATE_WATERREPORT_TABLE);
     }
 
     /**
@@ -48,6 +70,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERINFO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATERREPORTS);
 
         // Create tables again
         onCreate(db);
@@ -117,7 +140,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                System.out.println(cursor.getString(1));
                 String tempUsername = cursor.getString(1);
                 if (tempUsername.equals(username)) {
                     String tempPassword = cursor.getString(2);
@@ -174,5 +196,46 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         db.close();
         return u;
+    }
+
+    public boolean addWaterReport(WaterReport wp) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_USERNAME2, wp.getSubmitter().getUsername());
+        values.put(KEY_DATE, wp.getDateSubmitted());
+        values.put(KEY_LOCATION, wp.getLocation().getProvider());
+        values.put(KEY_DOUBLE1, wp.getLocation().getLatitude());
+        values.put(KEY_DOUBLE2, wp.getLocation().getLongitude());
+        values.put(KEY_LOCATIONSTRING, wp.getLocationString());
+        values.put(KEY_TYPE, wp.getType());
+        values.put(KEY_CONDITION, wp.getCondition());
+
+        // Inserting Row
+        db.insert(TABLE_WATERREPORTS, null, values);
+        //2nd argument is String containing nullColumnHack
+        db.close(); // Closing database connection
+        return true;
+    }
+
+    public List<WaterReport> getWaterReports() {
+        ArrayList<WaterReport> reportList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_WATERREPORTS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                User tempUser = getUser(cursor.getString(1));
+                Location location = new Location(cursor.getString(3));
+                location.setLatitude(4);
+                location.setLongitude(5);
+                WaterReport wp = new WaterReport(tempUser, cursor.getString(2), location,
+                            cursor.getString(6), cursor.getString(7), cursor.getString(8));
+                reportList.add(wp);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        return reportList;
     }
 }

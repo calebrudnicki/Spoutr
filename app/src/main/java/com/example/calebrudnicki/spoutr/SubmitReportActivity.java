@@ -113,7 +113,8 @@ public class SubmitReportActivity extends AppCompatActivity {
         if (location != null) {
             String locationString = findAddress(location);
             WaterReport newReport = new WaterReport(u, date, location, locationString, spWaterTypes.getSelectedItem().toString(), spWaterConditions.getSelectedItem().toString());
-            if (modelHelper.addWaterReport(newReport)) {
+            DatabaseHandler db = new DatabaseHandler(this);
+            if (db.addWaterReport(newReport)) {
                 Intent homePageIntent = new Intent(SubmitReportActivity.this, HomePageActivity.class);
                 homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
                 SubmitReportActivity.this.startActivity(homePageIntent);

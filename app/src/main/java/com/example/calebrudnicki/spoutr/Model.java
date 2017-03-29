@@ -15,7 +15,6 @@ import java.util.List;
 public class Model {
 
     private static final Model instance = new Model();
-    public static List<WaterReport> allReports;
     public static List<PurityReport> allPurityReports;
     public static List<String> accountTypes = Arrays.asList("User", "Worker", "Manager", "Admin");
     public static List<String> waterTypes = Arrays.asList("Well", "Stream", "River", "Spring", "Bottled", "Lake");
@@ -27,19 +26,8 @@ public class Model {
      * This function is the constructor for model, making an empty array list for users and reports
      */
     public Model() {
-        allReports = new ArrayList<>();
         allPurityReports = new ArrayList<>();
         loadDummyData();
-    }
-
-    /**
-     * This function adds a water report to the list of water reports
-     * @param report WaterReport the new water report
-     * @return true when the water report was added
-     */
-    public boolean addWaterReport(WaterReport report) {
-        allReports.add(report);
-        return true;
     }
 
     /**
@@ -53,10 +41,6 @@ public class Model {
         }
         allPurityReports.add(pr);
         return true;
-    }
-
-    public List<WaterReport> getAllReports() {
-        return allReports;
     }
 
     /**
@@ -84,8 +68,8 @@ public class Model {
         loomischaffee.setLatitude(41.844137);
         loomischaffee.setLongitude(-72.639610);
 
-        allReports.add(new WaterReport(bob, "12/15/1996 14:15:32", coopersquare, "New York City", "Well", "Potable"));
-        allReports.add(new WaterReport(bob, "04/29/1997 10:42:54", ocala, "Ocala", "Bottled", "Muddy"));
+//        allReports.add(new WaterReport(bob, "12/15/1996 14:15:32", coopersquare, "New York City", "Well", "Potable"));
+//        allReports.add(new WaterReport(bob, "04/29/1997 10:42:54", ocala, "Ocala", "Bottled", "Muddy"));
         WaterReport lcWR = new WaterReport(bob, "03/09/2001 23:37:01", loomischaffee, "Windsor", "River", "Potable");
 
         PurityReport lcPR1 = new PurityReport(bob, "01/21/2017", loomischaffee, "Safe", 23, 45);
@@ -102,7 +86,7 @@ public class Model {
         lcWR.addToPRList(lcPR2);
         lcWR.addToPRList(lcPR3);
         lcWR.addToPRList(lcPR4);
-        allReports.add(lcWR);
+//        allReports.add(lcWR);
 
     }
 }
