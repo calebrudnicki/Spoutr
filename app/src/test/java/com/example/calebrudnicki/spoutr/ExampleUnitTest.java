@@ -68,4 +68,21 @@ public class ExampleUnitTest {
         assertFalse("Location cannot be null", model.addPurityReport(prWrong));
 
     }
+
+    @Test
+    public void addWaterReportTest() {
+        Model model = new Model();
+        Location loomischaffee = new Location("Loomis Chaffee");
+        Location ocala = new Location("Ocala");
+        User bob = new User("Bob Waters", "bwater@gatech.edu", "bobwaters", "csiffun", "User");
+        User jack = new User("Jack McCormack", "jmack@gatech.edu", "jmccormack30", "qwerty", "User");
+        WaterReport r1 = new WaterReport(bob, "12/15/1996 14:15:32", loomischaffee, "Atlanta", "Well", "Potable");
+        WaterReport r2 = new WaterReport(jack, "04/29/1997 10:42:54", ocala, "Ocala", "Bottled", "Muddy");
+
+        //Testing adding two separate Water Reports
+        assertTrue(model.addWaterReport(r1));
+        assertTrue(model.addWaterReport(r2));
+        //Testing adding an identical water report
+        assertFalse(model.addWaterReport(r1));
+    }
 }

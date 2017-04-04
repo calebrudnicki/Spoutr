@@ -20,6 +20,7 @@ public class Model {
 
     private static final Model instance = new Model();
     public static List<User> allUsers;
+    public static List<WaterReport> allReports;
     public static List<PurityReport> allPurityReports;
     public static List<String> accountTypes = Arrays.asList("User", "Worker", "Manager", "Admin");
     public static List<String> waterTypes = Arrays.asList("Well", "Stream", "River", "Spring", "Bottled", "Lake");
@@ -32,8 +33,24 @@ public class Model {
      */
     public Model() {
         allUsers = new ArrayList<>();
+        allReports = new ArrayList<>();
         allPurityReports = new ArrayList<>();
         loadDummyData();
+    }
+
+    /**
+     * This function adds a water report to the list of water reports
+     * @param report WaterReport the new water report
+     * @return true when the water report was added
+     */
+    public boolean addWaterReport(WaterReport report) {
+        for (WaterReport wp: allReports) {
+            if (report == wp) {
+                return false;
+            }
+        }
+        allReports.add(report);
+        return true;
     }
 
     /**
