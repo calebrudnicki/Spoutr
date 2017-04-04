@@ -59,33 +59,12 @@ public class SubmitReportActivity extends AppCompatActivity {
     }
 
     /**
-     * This function uses the text field to geocode the address into a set of coordinates
-     * @return the location of the coordinates
-     */
-    private Location findCoordinates() throws IOException {
-        Geocoder gc = new Geocoder(this);
-        List<Address> list = gc.getFromLocationName(etLocation.getText().toString(), 1);
-        if (list.size() > 0) {
-            Address add = list.get(0);
-            double lat = add.getLatitude();
-            double lng = add.getLongitude();
-            Location location = new Location("ENTERED_LOCATION");
-            location.setLatitude(lat);
-            location.setLongitude(lng);
-            return location;
-        } else {
-            return null;
-        }
-
-    }
-
-    /**
      * This functions takes in a location object and returns the location's city
      * @param location the location that you want to find the city of
      * @return the city of the location
      * @throws IOException thrown if the object passed in is invalid
      */
-    private String findAddress(Location location) throws IOException {
+    public String findAddress(Location location) throws IOException {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
         String address = addresses.get(0).getAddressLine(0);
@@ -101,6 +80,26 @@ public class SubmitReportActivity extends AppCompatActivity {
         Log.d("GEOCODER", "Postal Code: " + postalCode);
         Log.d("GEOCODER", "Known Name: " + knownName);
         return city;
+    }
+
+    /**
+     * This function uses the text field to geocode the address into a set of coordinates
+     * @return the location of the coordinates
+     */
+    public Location findCoordinates() throws IOException {
+        Geocoder gc = new Geocoder(this);
+        List<Address> list = gc.getFromLocationName(etLocation.getText().toString(), 1);
+        if (list.size() > 0) {
+            Address add = list.get(0);
+            double lat = add.getLatitude();
+            double lng = add.getLongitude();
+            Location location = new Location("ENTERED_LOCATION");
+            location.setLatitude(lat);
+            location.setLongitude(lng);
+            return location;
+        } else {
+            return null;
+        }
     }
 
     /**
