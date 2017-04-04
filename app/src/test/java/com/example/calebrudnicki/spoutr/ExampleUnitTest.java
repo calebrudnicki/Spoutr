@@ -54,4 +54,18 @@ public class ExampleUnitTest {
         assertEquals(1, model.getAllUsers().size());
 
     }
+
+    @Test
+    public void addPurityReportTest() throws Exception {
+        Model model = new Model();
+        User user = new User("Chloe Belangia", "chloe.belangia@gmail.com", "cbelangia", "chloebelangia", "User");
+        Location loc = new Location("Here");
+        //Testing for creating a successful purity report
+        PurityReport pr = new PurityReport(user, "today", loc, "good condition", 69, 69);
+        assertTrue("Added Purity Report Successfully", model.addPurityReport(pr));
+        //Testing for null location
+        PurityReport prWrong = new PurityReport(user, "today", null, "good condition", 69, 69);
+        assertFalse("Location cannot be null", model.addPurityReport(prWrong));
+
+    }
 }
