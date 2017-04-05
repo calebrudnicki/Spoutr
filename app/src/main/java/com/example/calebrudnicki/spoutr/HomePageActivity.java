@@ -105,6 +105,9 @@ public class HomePageActivity extends AppCompatActivity
         u = getIntent().getParcelableExtra("SESSION_USER");
         modelHelper = Model.getInstance();
 
+        Toast toast = Toast.makeText(this, "Click to see map. Long click to see the purity reports page.", Toast.LENGTH_LONG);
+        toast.show();
+
     }
 
     @Override
