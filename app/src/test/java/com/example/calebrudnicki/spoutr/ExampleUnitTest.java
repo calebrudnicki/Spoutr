@@ -89,12 +89,16 @@ public class ExampleUnitTest {
     @Test
     //Rachel's JUnit
     public void getMonthSubmittedTest() {
-        //User thomas = new User();
-        //PurityReport pr = new PurityReport(thomas);
-        //Test with previously created user
-        //assertTrue();
-        //Test with user just created
-        //Test with a user that doesn't exist
+        User leslie = new User("leslie", "waffles@pawnee.com", "knope123", "123456", "Manager");
+        Location hongKong = new Location("hong kong");
+        //Test for months Jan through Sept (1-9)
+        PurityReport pr1 = new PurityReport(leslie, "04/04/2017", hongKong, "Treatable", 5, 5);
+        assertTrue(pr1.getMonthSubmitted() == 4);
+        assertFalse(pr1.getMonthSubmitted() == 5);
+        //Test for months Oct through Dec (10--12)
+        PurityReport pr = new PurityReport(leslie, "10/04/2017", hongKong, "Treatable", 5, 5);
+        assertTrue(pr.getMonthSubmitted() == 10);
+        assertFalse(pr.getMonthSubmitted() == 1);
     }
 
     @Test
