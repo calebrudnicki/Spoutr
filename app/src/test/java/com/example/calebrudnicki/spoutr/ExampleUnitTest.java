@@ -85,4 +85,21 @@ public class ExampleUnitTest {
         //Testing adding an identical water report
         assertFalse(model.addWaterReport(r1));
     }
+
+    @Test
+    //Rachel's JUnit
+    public void getMonthSubmittedTest() {
+        //User thomas = new User();
+        //PurityReport pr = new PurityReport(thomas);
+        //Test with previously created user
+        //assertTrue();
+        //Test with user just created
+        //Test with a user that doesn't exist
+    }
+
+    @Test
+    //Rachel's JUnit
+    public void addToPRListTest() {
+
+    }
 }
