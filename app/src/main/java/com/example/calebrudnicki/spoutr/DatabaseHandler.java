@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Spoutr Database";
 
     private static final String TABLE_USERINFO = "userinfo";
@@ -24,17 +24,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_ACCOUNT = "account";
     private static final String KEY_ID = "id";
-
-    private static final String TABLE_WATERREPORTS = "waterreports";
-    private static final String KEY_USERNAME2 = "username";
-    private static final String KEY_DATE = "date";
-    private static final String KEY_LOCATION = "location";
-    private static final String KEY_DOUBLE1 = "double1";
-    private static final String KEY_DOUBLE2 = "double2";
-    private static final String KEY_LOCATIONSTRING = "locationString";
-    private static final String KEY_TYPE = "type";
-    private static final String KEY_CONDITION = "condition";
-    private static final String KEY_ID2 = "id";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,13 +40,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_PASSWORD + " TEXT," + KEY_NAME + " TEXT," + KEY_EMAIL
                 + " TEXT," + KEY_ACCOUNT + " TEXT" + ")";
         db.execSQL(CREATE_USERINFO_TABLE);
-
-        String CREATE_WATERREPORT_TABLE = "CREATE TABLE " + TABLE_WATERREPORTS + "("
-                + KEY_ID2 + " INTEGER PRIMARY KEY," + KEY_USERNAME2 + " TEXT,"
-                + KEY_DATE + " TEXT," + KEY_LOCATION + " TEXT," + KEY_DOUBLE1
-                + " TEXT," + KEY_DOUBLE2 + " TEXT," + KEY_LOCATIONSTRING
-                + " TEXT," + KEY_TYPE + " TEXT," + KEY_CONDITION + " TEXT" + ")";
-        db.execSQL(CREATE_WATERREPORT_TABLE);
     }
 
     /**
@@ -70,7 +52,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERINFO);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATERREPORTS);
 
         // Create tables again
         onCreate(db);
@@ -196,46 +177,5 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         db.close();
         return u;
-    }
-
-    public boolean addWaterReport(WaterReport wp) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_USERNAME2, wp.getSubmitter().getUsername());
-        values.put(KEY_DATE, wp.getDateSubmitted());
-        values.put(KEY_LOCATION, wp.getLocation().getProvider());
-        values.put(KEY_DOUBLE1, wp.getLocation().getLatitude());
-        values.put(KEY_DOUBLE2, wp.getLocation().getLongitude());
-        values.put(KEY_LOCATIONSTRING, wp.getLocationString());
-        values.put(KEY_TYPE, wp.getType());
-        values.put(KEY_CONDITION, wp.getCondition());
-
-        // Inserting Row
-        db.insert(TABLE_WATERREPORTS, null, values);
-        //2nd argument is String containing nullColumnHack
-        db.close(); // Closing database connection
-        return true;
-    }
-
-    public List<WaterReport> getWaterReports() {
-        ArrayList<WaterReport> reportList = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_WATERREPORTS;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                User tempUser = getUser(cursor.getString(1));
-                Location location = new Location(cursor.getString(3));
-                location.setLatitude(4);
-                location.setLongitude(5);
-                WaterReport wp = new WaterReport(tempUser, cursor.getString(2), location,
-                            cursor.getString(6), cursor.getString(7), cursor.getString(8));
-                reportList.add(wp);
-            } while (cursor.moveToNext());
-        }
-        db.close();
-        return reportList;
     }
 }

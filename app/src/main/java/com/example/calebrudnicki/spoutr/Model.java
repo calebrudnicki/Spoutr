@@ -98,6 +98,10 @@ public class Model {
         return true;
     }
 
+    public List<WaterReport> getAllReports() {
+        return allReports;
+    }
+
     /**
      * This function returns an instance of the model class
      * @return the list of all users
@@ -122,8 +126,8 @@ public class Model {
         loomischaffee.setLatitude(41.844137);
         loomischaffee.setLongitude(-72.639610);
 
-//        allReports.add(new WaterReport(bob, "12/15/1996 14:15:32", coopersquare, "New York City", "Well", "Potable"));
-//        allReports.add(new WaterReport(bob, "04/29/1997 10:42:54", ocala, "Ocala", "Bottled", "Muddy"));
+        allReports.add(new WaterReport(bob, "12/15/1996 14:15:32", coopersquare, "New York City", "Well", "Potable"));
+        allReports.add(new WaterReport(bob, "04/29/1997 10:42:54", ocala, "Ocala", "Bottled", "Muddy"));
         WaterReport lcWR = new WaterReport(bob, "03/09/2001 23:37:01", loomischaffee, "Windsor", "River", "Potable");
 
         PurityReport lcPR1 = new PurityReport(bob, "01/21/2017", loomischaffee, "Safe", 23, 45);
@@ -140,7 +144,7 @@ public class Model {
         lcWR.addToPRList(lcPR2);
         lcWR.addToPRList(lcPR3);
         lcWR.addToPRList(lcPR4);
-//        allReports.add(lcWR);
+        allReports.add(lcWR);
 
     }
 }

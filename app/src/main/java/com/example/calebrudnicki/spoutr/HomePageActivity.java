@@ -69,8 +69,10 @@ public class HomePageActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //This block of code sets up the list view
-        DatabaseHandler db = new DatabaseHandler(this);
-        listWaterReports = db.getWaterReports();
+        listWaterReports = new ArrayList<>();
+        for (WaterReport wr : Model.allReports) {
+            listWaterReports.add(wr);
+        }
 
         lvWaterReports = (ListView) findViewById(R.id.lvWaterReports);
         ArrayAdapter<WaterReport> listViewAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, listWaterReports);
