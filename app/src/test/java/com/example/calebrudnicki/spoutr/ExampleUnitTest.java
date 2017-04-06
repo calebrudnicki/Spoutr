@@ -56,6 +56,32 @@ public class ExampleUnitTest {
     }
 
     @Test
+    public void addToPRListTest() throws Exception {
+
+        User user = new User("Kendal Lin", "klin78@gatech.edu", "kmoneydelicious", "kendallin", "User");
+        Location Texas = new Location("Texas");
+        WaterReport report = new WaterReport(user, "04/29/1997 10:42:54", Texas, "Texas", "Well", "good condition");
+        //Testing for adding purity report to list successfully
+        PurityReport p1 = new PurityReport(user, "04/29/1997 10:42:54", Texas, "good condition", 6, 9);
+        assertTrue("Another Purity Report added to list successfully", report.addToPRList(p1));
+        //Testing for null user
+        PurityReport p2 = new PurityReport(null, "04/29/1997 10:42:54", Texas, "good condition", 6, 9);
+        assertFalse("Purity Report added with null user", report.addToPRList(p2));
+        //Testing for null dateSubmitted
+        PurityReport p3 = new PurityReport(user, null, Texas, "good condition", 6, 9);
+        assertFalse("Purity Report added with null dateSubmitted", report.addToPRList(p3));
+        //Testing for null condition
+        PurityReport p4 = new PurityReport(user, "04/29/1997 10:42:54", Texas, null, 6, 9);
+        assertFalse("Purity Report added with null condition", report.addToPRList(p4));
+        //Testing if virusPPM is less than 0
+        PurityReport p5 = new PurityReport(user, "04/29/1997 10:42:54", Texas, "good condition", -1, 9);
+        assertFalse("Purity Report added with a negative virusPPM", report.addToPRList(p5));
+        //Testing if contaminantPPM is less than 0
+        PurityReport p6 = new PurityReport(user, "04/29/1997 10:42:54", Texas, "good condition", 6, -1);
+        assertFalse("Purity Report added with a negative contaminantPPM", report.addToPRList(p6));
+    }
+
+    @Test
     public void addPurityReportTest() throws Exception {
         Model model = new Model();
         User user = new User("Chloe Belangia", "chloe.belangia@gmail.com", "cbelangia", "chloebelangia", "User");
@@ -101,9 +127,5 @@ public class ExampleUnitTest {
         assertFalse(pr.getMonthSubmitted() == 1);
     }
 
-    @Test
-    //Rachel's JUnit
-    public void addToPRListTest() {
 
-    }
 }

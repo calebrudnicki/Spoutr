@@ -117,6 +117,23 @@ public class WaterReport implements Parcelable {
      * @param pr PurityReport of this water report
      */
     public boolean addToPRList(PurityReport pr) {
+        if (pr == null) {
+            return false;
+        } else if (pr.getSubmitter() == null) {
+            return false;
+        } else if (pr.getDateSubmitted() == null) {
+            return false;
+        } else if (pr.getLocation() == null) {
+            return false;
+        } else if (pr.getCondition() == null) {
+            return false;
+        } else if (pr.getVirusPPM() < 0) {
+            return false;
+        } else if (pr.getContaminantPPM() < 0) {
+            return false;
+        } else if (pr.getReportNumber() < 0) {
+            return false;
+        }
         prList.add(pr);
         return true;
     }
