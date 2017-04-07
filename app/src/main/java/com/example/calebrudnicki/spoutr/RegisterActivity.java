@@ -21,7 +21,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Spinner spAccountType;
-    private Model modelHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         spAccountType = (Spinner) findViewById(R.id.spAccountType);
-        modelHelper =  Model.getInstance();
+        Model modelHelper = Model.getInstance();
 
         //This block of code sets up the adapter to display the allowable account types in the spinner
         ArrayAdapter<String> accountTypeAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Model.accountTypes);

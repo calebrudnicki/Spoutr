@@ -15,23 +15,20 @@ import org.w3c.dom.Text;
 
 public class  SettingsActivity extends AppCompatActivity {
 
-    private TextView tvName;
-    private TextView tvUsername;
     private EditText etEmail;
     private EditText etPassword;
     private User u;
-    private Model modelHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        tvName = (TextView) findViewById(R.id.tvName);
-        tvUsername = (TextView) findViewById(R.id.tvUsername);
+        TextView tvName = (TextView) findViewById(R.id.tvName);
+        TextView tvUsername = (TextView) findViewById(R.id.tvUsername);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
-        modelHelper =  Model.getInstance();
+        Model modelHelper = Model.getInstance();
 
         u = getIntent().getParcelableExtra("SESSION_USER");
 

@@ -3,6 +3,7 @@ package com.example.calebrudnicki.spoutr;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -32,11 +33,8 @@ import java.util.List;
 public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private TextView tvName;
-    private TextView tvUsername;
-    private ListView lvWaterReports;
     private User u;
-    private WaterReport wr;
+    // --Commented out by Inspection (4/7/2017 11:45 AM):private WaterReport wr;
     private Model modelHelper;
     private List<WaterReport> listWaterReports;
 
@@ -74,7 +72,7 @@ public class HomePageActivity extends AppCompatActivity
             listWaterReports.add(wr);
         }
 
-        lvWaterReports = (ListView) findViewById(R.id.lvWaterReports);
+        ListView lvWaterReports = (ListView) findViewById(R.id.lvWaterReports);
         ArrayAdapter<WaterReport> listViewAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, listWaterReports);
         lvWaterReports.setAdapter(listViewAdapter);
 
@@ -124,8 +122,8 @@ public class HomePageActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.nav_drawer, menu);
-        tvName = (TextView) findViewById(R.id.tvName);
-        tvUsername = (TextView) findViewById(R.id.tvUsername);
+        TextView tvName = (TextView) findViewById(R.id.tvName);
+        TextView tvUsername = (TextView) findViewById(R.id.tvUsername);
         tvName.setText(u.getName());
         tvUsername.setText(u.getUsername());
         return true;
@@ -133,7 +131,7 @@ public class HomePageActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 

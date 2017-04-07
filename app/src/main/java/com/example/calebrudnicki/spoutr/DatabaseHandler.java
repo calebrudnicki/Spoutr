@@ -13,7 +13,7 @@ import android.location.Location;
 import java.util.List;
 import java.util.ArrayList;
 
-public class DatabaseHandler extends SQLiteOpenHelper {
+class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Spoutr Database";
 
@@ -88,7 +88,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @param user the User being checked in the USER INFO table
      * @return a boolean telling whether the User is in the table or not
      */
-    public boolean hasUser(User user) {
+    private boolean hasUser(User user) {
         String username = user.getUsername();
         boolean hasUser = false;
         String selectQuery = "SELECT * FROM " + TABLE_USERINFO;
@@ -143,7 +143,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @param email the new email of the user
      * @return the number of rows affected
      */
-    public int updateInfo(User user, String password, String email) {
+    public void updateInfo(User user, String password, String email) {
         String username = user.getUsername();
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -152,7 +152,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_EMAIL, email);
 
         //Updating row
-        return db.update(TABLE_USERINFO, values, KEY_USERNAME + " = ?", new String[]{username});
+        //return db.update(TABLE_USERINFO, values, KEY_USERNAME + " = ?", new String[]{username});
     }
 
     /**

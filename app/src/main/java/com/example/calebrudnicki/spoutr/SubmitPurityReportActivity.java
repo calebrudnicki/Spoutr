@@ -22,14 +22,10 @@ import java.util.List;
 
 public class SubmitPurityReportActivity extends AppCompatActivity {
 
-    private ListView lvWaterReports;
-    private List<WaterReport> listWaterReports;
     private TextView tvSelectedWaterReport;
     private Spinner spPurityConditions;
     private EditText etVirusPPM;
     private EditText etContaminantPPM;
-    private Button bSubmitPurityReport;
-    private Button bCancelPurityReport;
     private User u;
     private WaterReport selectedReport;
     private Model modelHelper;
@@ -44,8 +40,8 @@ public class SubmitPurityReportActivity extends AppCompatActivity {
         spPurityConditions = (Spinner) findViewById(R.id.spPurityConditions);
         etVirusPPM = (EditText) findViewById(R.id.etVirusPPM);
         etContaminantPPM = (EditText) findViewById(R.id.etContaminantPPM);
-        bSubmitPurityReport = (Button) findViewById(R.id.bSubmitPurityReport);
-        bCancelPurityReport = (Button) findViewById(R.id.bCancelPurityReport);
+        Button bSubmitPurityReport = (Button) findViewById(R.id.bSubmitPurityReport);
+        Button bCancelPurityReport = (Button) findViewById(R.id.bCancelPurityReport);
         modelHelper = Model.getInstance();
 
         u = getIntent().getParcelableExtra("SESSION_USER");
@@ -56,12 +52,12 @@ public class SubmitPurityReportActivity extends AppCompatActivity {
         spPurityConditions.setAdapter(purityConditionAdapter);
 
         //This block of code sets up the list view
-        listWaterReports = new ArrayList<>();
+        List<WaterReport> listWaterReports = new ArrayList<>();
         for (WaterReport wr : Model.allReports) {
             listWaterReports.add(wr);
         }
 
-        lvWaterReports = (ListView) findViewById(R.id.lvWaterReports);
+        ListView lvWaterReports = (ListView) findViewById(R.id.lvWaterReports);
         ArrayAdapter<WaterReport> listViewAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, listWaterReports);
         lvWaterReports.setAdapter(listViewAdapter);
 

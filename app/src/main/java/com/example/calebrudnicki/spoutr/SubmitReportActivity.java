@@ -27,11 +27,9 @@ public class SubmitReportActivity extends AppCompatActivity {
     private EditText etLocation;
     private Spinner spWaterTypes;
     private Spinner spWaterConditions;
-    private Button bSubmitReport;
-    private Button bCancelReport;
     private User u;
     private Model modelHelper;
-    private Location enteredLocation;
+    // --Commented out by Inspection (4/7/2017 11:49 AM):private Location enteredLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +39,8 @@ public class SubmitReportActivity extends AppCompatActivity {
         etLocation = (EditText) findViewById(R.id.etLocation);
         spWaterTypes = (Spinner) findViewById(R.id.spWaterTypes);
         spWaterConditions = (Spinner) findViewById(R.id.spWaterConditions);
-        bSubmitReport = (Button) findViewById(R.id.bSubmitReport);
-        bCancelReport = (Button) findViewById(R.id.bCancelReport);
+        Button bSubmitReport = (Button) findViewById(R.id.bSubmitReport);
+        Button bCancelReport = (Button) findViewById(R.id.bCancelReport);
         modelHelper = Model.getInstance();
 
         u = getIntent().getParcelableExtra("SESSION_USER");
@@ -64,7 +62,7 @@ public class SubmitReportActivity extends AppCompatActivity {
      * @return the city of the location
      * @throws IOException thrown if the object passed in is invalid
      */
-    public String findAddress(Location location) throws IOException {
+    private String findAddress(Location location) throws IOException {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
         String address = addresses.get(0).getAddressLine(0);
@@ -86,7 +84,7 @@ public class SubmitReportActivity extends AppCompatActivity {
      * This function uses the text field to geocode the address into a set of coordinates
      * @return the location of the coordinates
      */
-    public Location findCoordinates() throws IOException {
+    private Location findCoordinates() throws IOException {
         Geocoder gc = new Geocoder(this);
         List<Address> list = gc.getFromLocationName(etLocation.getText().toString(), 1);
         if (list.size() > 0) {

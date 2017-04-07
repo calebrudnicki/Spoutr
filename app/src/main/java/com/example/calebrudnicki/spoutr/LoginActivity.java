@@ -22,7 +22,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button bLogin;
-    private TextView registerLink;
     private Model modelHelper;
 
     @Override
@@ -33,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         bLogin = (Button) findViewById(R.id.bLogin);
-        registerLink = (TextView) findViewById(R.id.tvRegisterHere);
+        TextView registerLink = (TextView) findViewById(R.id.tvRegisterHere);
         modelHelper = Model.getInstance();
 
         //This function segues the view to the register page upon clicking the register here button

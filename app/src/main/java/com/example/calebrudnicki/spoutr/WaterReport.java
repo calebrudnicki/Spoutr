@@ -19,13 +19,13 @@ import java.util.Locale;
  */
 
 public class WaterReport implements Parcelable {
-    private User submitter;
-    private String dateSubmitted;
-    private Location location;
-    private String locationString;
-    private String type;
-    private String condition;
-    private int reportNumber;
+    private final User submitter;
+    private final String dateSubmitted;
+    private final Location location;
+    private final String locationString;
+    private final String type;
+    private final String condition;
+    private final int reportNumber;
     private static int reportCounter = 0;
     private List<PurityReport> prList = new ArrayList<>();
 
@@ -51,14 +51,16 @@ public class WaterReport implements Parcelable {
         return submitter;
     }
 
-    /**
-     * This function returns the date that the water report was submitted
-     *
-     * @return the date it was submitted
-     */
-    public String getDateSubmitted() {
-        return dateSubmitted;
-    }
+// --Commented out by Inspection START (4/7/2017 11:49 AM):
+//    /**
+//     * This function returns the date that the water report was submitted
+//     *
+//     * @return the date it was submitted
+//     */
+//    public String getDateSubmitted() {
+//        return dateSubmitted;
+//    }
+// --Commented out by Inspection STOP (4/7/2017 11:49 AM)
 
     /**
      * This function returns the string location of the water report

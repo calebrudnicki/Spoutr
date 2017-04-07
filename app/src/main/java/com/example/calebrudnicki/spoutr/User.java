@@ -12,11 +12,11 @@ import java.io.Serializable;
 
 public class User implements Parcelable, Serializable {
 
-    private String name;
+    private final String name;
     private String email;
-    private String username;
+    private final String username;
     private String password;
-    private String accountType;
+    private final String accountType;
     private int attemptedLogins;
 
     /**
@@ -52,13 +52,15 @@ public class User implements Parcelable, Serializable {
         return email;
     }
 
-    /**
-     * This function sets the email of the user
-     * @param email String the user's email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
+// --Commented out by Inspection START (4/7/2017 11:48 AM):
+//    /**
+//     * This function sets the email of the user
+//     * @param email String the user's email
+//     */
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
+// --Commented out by Inspection STOP (4/7/2017 11:48 AM)
 
     /**
      * This function returns the username of the user
@@ -76,13 +78,15 @@ public class User implements Parcelable, Serializable {
         return password;
     }
 
-    /**
-     * This function sets the password of the user
-     * @param password String the user's password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+// --Commented out by Inspection START (4/7/2017 11:48 AM):
+//    /**
+//     * This function sets the password of the user
+//     * @param password String the user's password
+//     */
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
+// --Commented out by Inspection STOP (4/7/2017 11:48 AM)
 
     /**
      * This function returns the account type of the user
@@ -92,21 +96,25 @@ public class User implements Parcelable, Serializable {
         return accountType;
     }
 
-    /**
-     * This function returns the amount of login attempts by the user
-     * @return the user's number of attempted logins
-     */
-    public int getAttemptedLogins() {
-        return attemptedLogins;
-    }
+// --Commented out by Inspection START (4/7/2017 11:48 AM):
+//    /**
+//     * This function returns the amount of login attempts by the user
+//     * @return the user's number of attempted logins
+//     */
+//    public int getAttemptedLogins() {
+//        return attemptedLogins;
+//    }
+// --Commented out by Inspection STOP (4/7/2017 11:48 AM)
 
-    /**
-     * This function sets the the amount of login attempts by the user
-     * @param loginAttempts int the user's amount of login attempts
-     */
-    public void setAttemptedLogins(int loginAttempts) {
-        this.attemptedLogins = attemptedLogins++;
-    }
+// --Commented out by Inspection START (4/7/2017 11:48 AM):
+//    /**
+//     * This function sets the the amount of login attempts by the user
+//     * @param loginAttempts int the user's amount of login attempts
+//     */
+//    public void setAttemptedLogins(int loginAttempts) {
+//        this.attemptedLogins = attemptedLogins++;
+//    }
+// --Commented out by Inspection STOP (4/7/2017 11:48 AM)
 
     //Parcelable Stuff
 

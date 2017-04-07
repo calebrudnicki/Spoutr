@@ -12,14 +12,14 @@ import android.util.Log;
 
 public class PurityReport implements Parcelable {
 
-    private User submitter;
-    private String dateSubmitted;
-    private Location location;
+    private final User submitter;
+    private final String dateSubmitted;
+    private final Location location;
     private String locationString;
-    private String condition;
-    private int virusPPM;
-    private int contaminantPPM;
-    private int reportNumber;
+    private final String condition;
+    private final int virusPPM;
+    private final int contaminantPPM;
+    private final int reportNumber;
     private static int reportCounter = 0;
 
     /**
@@ -113,7 +113,7 @@ public class PurityReport implements Parcelable {
      * @return the month it was submitted
      */
     public int getMonthSubmitted() {
-        int monthSubmitted = 0;
+        int monthSubmitted;
         String str = String.valueOf(this.getDateSubmitted().charAt(0));
         if (str.equals("0")) {
             str = String.valueOf(this.getDateSubmitted().charAt(1));

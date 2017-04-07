@@ -19,14 +19,14 @@ import java.util.Locale;
 public class Model {
 
     private static final Model instance = new Model();
-    public static List<User> allUsers;
+    private static List<User> allUsers;
     public static List<WaterReport> allReports;
-    public static List<PurityReport> allPurityReports;
-    public static List<String> accountTypes = Arrays.asList("User", "Worker", "Manager", "Admin");
-    public static List<String> waterTypes = Arrays.asList("Well", "Stream", "River", "Spring", "Bottled", "Lake");
-    public static List<String> waterConditions = Arrays.asList("Waste", "Treatable Clear", "Treatable Muddy", "Potable");
-    public static List<String> purityConditions = Arrays.asList("Safe", "Treatable", "Unsafe");
-    public static List<String> purityGraphTypes = Arrays.asList("Virus", "Contaminant");
+    private static List<PurityReport> allPurityReports;
+    public static final List<String> accountTypes = Arrays.asList("User", "Worker", "Manager", "Admin");
+    public static final List<String> waterTypes = Arrays.asList("Well", "Stream", "River", "Spring", "Bottled", "Lake");
+    public static final List<String> waterConditions = Arrays.asList("Waste", "Treatable Clear", "Treatable Muddy", "Potable");
+    public static final List<String> purityConditions = Arrays.asList("Safe", "Treatable", "Unsafe");
+    public static final List<String> purityGraphTypes = Arrays.asList("Virus", "Contaminant");
 
     /**
      * This function is the constructor for model, making an empty array list for users and reports
@@ -90,7 +90,7 @@ public class Model {
      * @param pr PurityReport the new purity report
      * @return true when the purity report was added
      */
-    public static boolean addPurityReport(PurityReport pr) {
+    public boolean addPurityReport(PurityReport pr) {
         if (pr.getLocation() == null) {
             return false;
         }
@@ -98,9 +98,11 @@ public class Model {
         return true;
     }
 
-    public List<WaterReport> getAllReports() {
-        return allReports;
-    }
+// --Commented out by Inspection START (4/7/2017 11:49 AM):
+//    public List<WaterReport> getAllReports() {
+//        return allReports;
+//    }
+// --Commented out by Inspection STOP (4/7/2017 11:49 AM)
 
     /**
      * This function returns an instance of the model class

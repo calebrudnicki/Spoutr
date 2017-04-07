@@ -25,7 +25,6 @@ import java.util.List;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
     private Boolean showingOneLocation;
     private WaterReport selectedReport;
     private List<WaterReport> allReports;
@@ -50,7 +49,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        GoogleMap mMap = googleMap;
         if (showingOneLocation) {
             String markerTitle = selectedReport.getLocationString() + " - Submitted by " + selectedReport.getSubmitter().getName();
             LatLng shownLocation = new LatLng(selectedReport.getLocation().getLatitude(), selectedReport.getLocation().getLongitude());

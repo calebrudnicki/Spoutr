@@ -23,11 +23,8 @@ import java.util.List;
 
 public class PurityInfoActivity extends AppCompatActivity {
 
-    private List<PurityReport> listPurityReports = new ArrayList<>();
-    private ListView lvPurityReports;
     private GraphView gHistoricalPPM;
     private Spinner spGraphType;
-    private Button bUpdateGraph;
     private WaterReport selectedReport;
 
     @Override
@@ -37,17 +34,17 @@ public class PurityInfoActivity extends AppCompatActivity {
 
         gHistoricalPPM = (GraphView) findViewById(R.id.gHistoricalPPM);
         spGraphType = (Spinner) findViewById(R.id.spGraphType);
-        bUpdateGraph = (Button) findViewById(R.id.bUpdateGraph);
+        Button bUpdateGraph = (Button) findViewById(R.id.bUpdateGraph);
 
         selectedReport = getIntent().getParcelableExtra("SELECTED_LOCATION");
 
         //This block of code sets up the list view
-        listPurityReports = new ArrayList<>();
+        List<PurityReport> listPurityReports = new ArrayList<>();
         for (PurityReport pr : selectedReport.getPrList()) {
             listPurityReports.add(pr);
         }
 
-        lvPurityReports = (ListView) findViewById(R.id.lvPurityReports);
+        ListView lvPurityReports = (ListView) findViewById(R.id.lvPurityReports);
         ArrayAdapter<WaterReport> listViewAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, listPurityReports);
         lvPurityReports.setAdapter(listViewAdapter);
 
