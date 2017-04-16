@@ -52,11 +52,11 @@
         android:id="@+id/tvRegisterHere" />
 
     <ImageView
+        android:id="@+id/ivLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/spoutrlogo"
-        android:id="@+id/imageView3"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/tvRegisterHere"
-        android:layout_alignParentStart="true" />
+        app:srcCompat="@drawable/spoutrlogo" />
 
 </RelativeLayout>
