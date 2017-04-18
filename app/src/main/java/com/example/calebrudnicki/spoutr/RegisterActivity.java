@@ -22,6 +22,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Spinner spAccountType;
+    private Button bCancel;
+    private Button bRegister;
     private Model modelHelper;
 
     @Override
@@ -35,12 +37,28 @@ public class RegisterActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         spAccountType = (Spinner) findViewById(R.id.spAccountType);
+        bCancel = (Button) findViewById(R.id.bCancelRegister);
+        bRegister = (Button) findViewById(R.id.bRegister);
         modelHelper =  Model.getInstance();
 
         //This block of code sets up the adapter to display the allowable account types in the spinner
         ArrayAdapter<String> accountTypeAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Model.accountTypes);
         accountTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spAccountType.setAdapter(accountTypeAdapter);
+
+        bRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRegisterPressed(v);
+            }
+        });
+
+        bCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCancelRegisterPressed(v);
+            }
+        });
     }
 
 

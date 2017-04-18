@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button bLogin;
     private ImageView ivLogo;
     private TextView registerLink;
+    private TextView tRecover;
     private Model modelHelper;
 
     @Override
@@ -39,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         bLogin = (Button) findViewById(R.id.bLogin);
         ivLogo = (ImageView) findViewById(R.id.ivLogo);
         registerLink = (TextView) findViewById(R.id.tvRegisterHere);
+        tRecover = (TextView) findViewById(R.id.tRecover);
         modelHelper = Model.getInstance();
 
         //Animation on the logo
@@ -54,6 +56,38 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        bLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onLoginPressed(v);
+            }
+        });
+        tRecover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final GMailSender sender = new GMailSender("spoutr.team@gmail.com", "cs2340thespouts");
+                DatabaseHandler db = new DatabaseHandler(LoginActivity.this);
+                final User tempUser = db.getUser(etUsername.getText().toString());
+                if (tempUser.getUsername() == null ) {
+                    etPassword.setText("");
+                    Toast toast = Toast.makeText(LoginActivity.this, "Please enter a valid username in the username field above.", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    try {
+                        String subject = "Spoutr Password Recover";
+                        String message = "Hello, " + tempUser.getName() + "! You have requested the Password Recovery" +
+                                " option. Your current password is: " + tempUser.getPassword();
+                        String email = tempUser.getEmail();
+                        sender.sendMail(subject, message, "spoutr.team@gmail.com", email);
+                        Toast toast = Toast.makeText(LoginActivity.this, "Email has successfully sent!", Toast.LENGTH_SHORT);
+                        toast.show();
+                    } catch (Exception e) {
+                        Toast toast = Toast.makeText(LoginActivity.this, "The email tied to your account is invalid or the eail failed to send.", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                }
+            }
+        });
     }
 
     /**
