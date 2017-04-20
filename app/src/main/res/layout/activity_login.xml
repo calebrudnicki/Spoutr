@@ -60,10 +60,19 @@
         app:srcCompat="@drawable/spoutrlogo" />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/tFacebook"
+        android:layout_below="@+id/tRecover"
+        android:layout_centerHorizontal="true"
+        android:text="Like us on Facebook!" />
+
+    <TextView
         android:text="Forgot your password? Click Here!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="18dp"
         android:id="@+id/tRecover"
         android:layout_below="@+id/tvRegisterHere"
         android:layout_centerHorizontal="true" />

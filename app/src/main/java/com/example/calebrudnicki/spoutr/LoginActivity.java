@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import android.net.Uri;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button bLogin;
     private ImageView ivLogo;
     private TextView registerLink;
+    private TextView tFacebook;
     private TextView tRecover;
     private Model modelHelper;
 
@@ -41,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         ivLogo = (ImageView) findViewById(R.id.ivLogo);
         registerLink = (TextView) findViewById(R.id.tvRegisterHere);
         tRecover = (TextView) findViewById(R.id.tRecover);
+        tFacebook = (TextView) findViewById(R.id.tFacebook);
         modelHelper = Model.getInstance();
 
         //Animation on the logo
@@ -88,8 +91,23 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+        tFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToFb(v);
+            }
+        });
     }
 
+    public void goToFb (View view) {
+        goToUrl( "https://www.facebook.com/Spoutr-966680500151122/");
+    }
+
+    private void goToUrl (String url) {
+        Uri uriUrl = Uri.parse(url);
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(launchBrowser);
+    }
     /**
      * This function logs in a new user when the login button is pressed as long as the data is verified
      * @param view View the login button
