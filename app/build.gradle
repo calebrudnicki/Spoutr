@@ -32,7 +32,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:10.2.0'
     compile 'com.jjoe64:graphview:4.2.1'
     testCompile 'junit:junit:4.12'
-    compile files('src/main/res/libs/mail.jar')
-    compile files('src/main/res/libs/additionnal.jar')
     compile files('src/main/res/libs/activation.jar')
+    compile files('src/main/res/libs/additionnal.jar')
+    compile files('src/main/res/libs/mail.jar')
 }

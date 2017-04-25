@@ -150,6 +150,15 @@ public class HomePageActivity extends AppCompatActivity
                 Toast toast = Toast.makeText(this, "As a User, you cannot submit a purity report", Toast.LENGTH_LONG);
                 toast.show();
             }
+        } else if (id == R.id.nav_banUser) {
+            if (u.getAccountType().equals("Admin")) {
+                Intent BanUserActivityIntent = new Intent(HomePageActivity.this, BanUserActivity.class);
+                BanUserActivityIntent.putExtra("SESSION_USER", (Parcelable) u);
+                HomePageActivity.this.startActivity(BanUserActivityIntent);
+            } else {
+                Toast toast = Toast.makeText(this, "This feature is only avaliable for Admins!", Toast.LENGTH_LONG);
+                toast.show();
+            }
         } else if (id == R.id.nav_settings) {
             Intent settingsActivityIntent = new Intent(HomePageActivity.this, SettingsActivity.class);
             settingsActivityIntent.putExtra("SESSION_USER", (Parcelable) u);

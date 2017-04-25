@@ -2,23 +2,25 @@ package com.example.calebrudnicki.spoutr;
 
 import android.content.Intent;
 import android.media.audiofx.BassBoost;
+import android.net.Uri;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-public class  SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     private TextView tvName;
     private TextView tvUsername;
     private EditText etEmail;
     private EditText etPassword;
+    private Button bCancel;
+    private Button bDone;
     private User u;
     private Model modelHelper;
 
@@ -28,10 +30,12 @@ public class  SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         tvName = (TextView) findViewById(R.id.tvName);
+        bCancel = (Button) findViewById(R.id.bCancelSettings);
+        bDone = (Button) findViewById(R.id.bDoneEditing);
         tvUsername = (TextView) findViewById(R.id.tvUsername);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
-        modelHelper =  Model.getInstance();
+        modelHelper = Model.getInstance();
 
         u = getIntent().getParcelableExtra("SESSION_USER");
 
@@ -40,16 +44,31 @@ public class  SettingsActivity extends AppCompatActivity {
         etEmail.setText(u.getEmail());
         etPassword.setText(u.getPassword());
         Log.d("SETTINGS", "USER: " + u.getAccountType());
+
+        bCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCancelEditingPressed(v);
+            }
+        });
+
+        bDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onDoneEditingPressed(v);
+            }
+        });
     }
 
     /**
      * This function updates the user's password and email when the done editing button is pressed and then goes back to the user activity page
+     *
      * @param view View the done editing button
      */
     protected void onDoneEditingPressed(View view) {
         if (etPassword.getText().toString().length() > 5 && (etEmail.getText().length() > 7 && etEmail.getText().toString().contains("@"))) {
             DatabaseHandler db = new DatabaseHandler(this);
-            db.updateInfo(u, etPassword.getText().toString(), etEmail.getText().toString());
+            db.updateInfo(u, etPassword.getText().toString(), etEmail.getText().toString(), "false");
             u = db.getUser(u.getUsername());
             Intent homePageIntent = new Intent(SettingsActivity.this, HomePageActivity.class);
             homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
@@ -67,6 +86,7 @@ public class  SettingsActivity extends AppCompatActivity {
 
     /**
      * This function goes back to the user activity page without editing the user's information
+     *
      * @param view View the cancel button
      */
     protected void onCancelEditingPressed(View view) {
@@ -74,5 +94,4 @@ public class  SettingsActivity extends AppCompatActivity {
         homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
         SettingsActivity.this.startActivity(homePageIntent);
     }
-
 }

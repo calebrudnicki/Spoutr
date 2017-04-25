@@ -10,6 +10,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
+import android.util.Log;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -23,6 +25,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_ACCOUNT = "account";
+    private static final String KEY_BAN = "ban";
     private static final String KEY_ID = "id";
 
     public DatabaseHandler(Context context) {
@@ -38,7 +41,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_USERINFO_TABLE = "CREATE TABLE " + TABLE_USERINFO + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_USERNAME + " TEXT,"
                 + KEY_PASSWORD + " TEXT," + KEY_NAME + " TEXT," + KEY_EMAIL
-                + " TEXT," + KEY_ACCOUNT + " TEXT" + ")";
+                + " TEXT," + KEY_ACCOUNT + " TEXT," + KEY_BAN + " TEXT" + ")";
         db.execSQL(CREATE_USERINFO_TABLE);
     }
 
@@ -75,6 +78,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_NAME, user.getName());
         values.put(KEY_EMAIL, user.getEmail());
         values.put(KEY_ACCOUNT, user.getAccountType());
+        values.put(KEY_BAN, "false");
 
         // Inserting Row
         db.insert(TABLE_USERINFO, null, values);
@@ -143,13 +147,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @param email the new email of the user
      * @return the number of rows affected
      */
-    public int updateInfo(User user, String password, String email) {
+    public int updateInfo(User user, String password, String email, String ban) {
         String username = user.getUsername();
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_PASSWORD, password);
         values.put(KEY_EMAIL, email);
+        values.put(KEY_BAN, ban);
 
         //Updating row
         return db.update(TABLE_USERINFO, values, KEY_USERNAME + " = ?", new String[]{username});
@@ -177,5 +182,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         db.close();
         return u;
+    }
+
+    public int banUser(String username, boolean ban) {
+        User u = getUser(username);
+        if (u.getUsername() != null) {
+            if (ban) {
+                updateInfo(u, u.getPassword(), u.getEmail(), "true");
+                return 1;
+            } else {
+                updateInfo(u, u.getPassword(), u.getEmail(), "false");
+                return 1;
+            }
+        } else {
+            return -5;
+        }
+    }
+
+    public boolean getBannedStatus(User user) {
+        String selectQuery = "SELECT * FROM " + TABLE_USERINFO;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        String username = user.getUsername();
+        boolean isBanned = false;
+
+        if (cursor.moveToFirst()) {
+            do {
+                if (username.equals(cursor.getString(1))) {
+                    String x = cursor.getString(6);
+                    isBanned = Boolean.parseBoolean(x);
+                }
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        return isBanned;
     }
 }

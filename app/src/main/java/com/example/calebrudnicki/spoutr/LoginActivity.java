@@ -1,7 +1,6 @@
 package com.example.calebrudnicki.spoutr;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,15 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 import android.net.Uri;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -31,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tFacebook;
     private TextView tRecover;
     private Model modelHelper;
+    private int numLogins = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                     toast.show();
                 } else {
                     try {
-                        String subject = "Spoutr Password Recover";
+                        String subject = "Spoutr Password Recovery";
                         String message = "Hello, " + tempUser.getName() + "! You have requested the Password Recovery" +
                                 " option. Your current password is: " + tempUser.getPassword();
                         String email = tempUser.getEmail();
@@ -113,16 +106,29 @@ public class LoginActivity extends AppCompatActivity {
      * @param view View the login button
      */
     protected void onLoginPressed(View view) {
-        DatabaseHandler db = new DatabaseHandler(this);
-        if (db.validateLogin(etUsername.getText().toString(), etPassword.getText().toString())) {
-            User u = db.getUser(etUsername.getText().toString());
-            Intent homePageIntent = new Intent(LoginActivity.this, HomePageActivity.class);
-            homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
-            LoginActivity.this.startActivity(homePageIntent);
+        if (numLogins < 3) {
+            DatabaseHandler db = new DatabaseHandler(this);
+            if (db.validateLogin(etUsername.getText().toString(), etPassword.getText().toString())) {
+                numLogins = 0;
+                User u = db.getUser(etUsername.getText().toString());
+                if (db.getBannedStatus(u)) {
+                    Toast toast = Toast.makeText(this, "You are banned from the system!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    etPassword.setText(null);
+                } else {
+                    Intent homePageIntent = new Intent(LoginActivity.this, HomePageActivity.class);
+                    homePageIntent.putExtra("SESSION_USER", (Parcelable) u);
+                    LoginActivity.this.startActivity(homePageIntent);
+                }
+            } else {
+                numLogins++;
+                Toast toast = Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT);
+                toast.show();
+                etPassword.setText(null);
+            }
         } else {
-            Toast toast = Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, "You have been locked out for too many login attempts!", Toast.LENGTH_SHORT);
             toast.show();
-            etPassword.setText(null);
         }
     }
 

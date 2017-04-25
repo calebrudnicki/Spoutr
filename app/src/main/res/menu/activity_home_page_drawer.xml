@@ -10,6 +10,10 @@
             android:id="@+id/nav_submitPurityReport"
             android:icon="@drawable/ic_menu_send"
             android:title="Submit Purity Report" />
+        <item
+            android:id="@+id/nav_banUser"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Ban User" />
     </group>
 
     <item android:title="Communicate">
